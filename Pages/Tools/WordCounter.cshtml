@@ -1,0 +1,34 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.WordCounterModel
+@{
+    ViewData["Title"] = "Word & Character Counter";
+}
+
+<section class="tool-page">
+    <h2>Word &amp; Character Counter</h2>
+    <p>Type or paste your text below to see live word and character counts.</p>
+
+    <div class="tool-layout">
+        <div class="tool-input">
+            <textarea id="wc-input" rows="10" placeholder="Start typing here..."></textarea>
+        </div>
+
+        <div class="tool-stats">
+            <h3>Counts</h3>
+            <ul>
+                <li>Words: <strong id="wc-words">0</strong></li>
+                <li>Characters (with spaces): <strong id="wc-chars-with">0</strong></li>
+                <li>Characters (no spaces): <strong id="wc-chars-no">0</strong></li>
+                <li>Lines: <strong id="wc-lines">0</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="tool-note">
+        This runs entirely in your browser. Your text is not sent anywhere.
+    </p>
+</section>
+
+@section Scripts {
+    <script src="~/js/word-counter.js"></script>
+}

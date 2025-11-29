@@ -1,0 +1,6 @@
+﻿# Visual Studio junk
+.vs/
+*.user
+*.suo
+bin/
+obj/

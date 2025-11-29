@@ -1,0 +1,29 @@
+﻿@page
+@model QuickToolbox.Pages.IndexModel
+@{
+    ViewData["Title"] = "QuickToolbox – Online Tools";
+}
+
+<section class="tool-page">
+    <h2>Available Tools</h2>
+
+    @if (Model.GroupedTools?.Any() == true)
+    {
+        @foreach (var category in Model.GroupedTools.Keys.OrderBy(k => k))
+        {
+            <section class="tool-category">
+                <h3>@category Tools</h3>
+                <ul>
+                    @foreach (var tool in Model.GroupedTools[category].OrderBy(t => t.Name))
+                    {
+                        <li><a href="@tool.Url">@tool.Name</a></li>
+                    }
+                </ul>
+            </section>
+        }
+    }
+    else
+    {
+        <p>No tools found yet.</p>
+    }
+</section>

@@ -1,0 +1,92 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 20px;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    font-size: 14px;
+}
+
+.cookie-text {
+    max-width: 70%;
+    line-height: 1.4;
+}
+
+.cookie-learnmore {
+    margin-left: 8px;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+    .cookie-buttons button {
+        padding: 6px 14px;
+        border: 1px solid #444;
+        background: #f7f7f7;
+        cursor: pointer;
+    }
+
+        .cookie-buttons button:hover {
+            background: #e6e6e6;
+        }
+
+/* -------------------------------
+   📱 MOBILE LAYOUT (600px and below)
+   ------------------------------- */
+@media (max-width: 600px) {
+    .cookie-banner {
+        flex-direction: column; /* stack text + buttons */
+        align-items: stretch; /* full width children */
+        text-align: left; /* cleaner for long text */
+        padding: 20px;
+        gap: 14px; /* spacing between sections */
+    }
+
+    .cookie-text {
+        max-width: 100%;
+    }
+
+    .cookie-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .cookie-buttons button {
+            flex: 1; /* full width buttons */
+            padding: 10px;
+        }
+}
