@@ -1,0 +1,104 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.PercentageDifferenceModel
+@{
+    ViewData["Title"] = "Percentage Difference Calculator";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Percentage Difference &amp; Change Calculator</h2>
+        <p>
+            Compare two values and see the percentage change from A to B, plus the symmetric percentage difference between them.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: INPUTS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Inputs</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="pd-value-a">Value A (original)</label>
+                <input class="form-input" id="pd-value-a" type="number" step="0.01" value="100" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="pd-value-b">Value B (new)</label>
+                <input class="form-input" id="pd-value-b" type="number" step="0.01" value="120" />
+            </div>
+
+            <div class="form-row">
+                <label class="form-label">Mode</label>
+                <div>
+                    <label class="checkbox-row">
+                        <input type="radio" name="pd-mode" id="pd-mode-change" value="change" checked />
+                        <span>Percentage change (from A to B)</span>
+                    </label>
+                    <label class="checkbox-row">
+                        <input type="radio" name="pd-mode" id="pd-mode-difference" value="difference" />
+                        <span>Percentage difference (symmetric)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="pd-calc" class="btn btn-primary">Calculate</button>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="pd-clear" class="btn btn-outline-secondary">Clear</button>
+            </div>
+
+            <p class="tool-note small">
+                Percentage change uses A as the starting point. Percentage difference uses the average of A and B, which is common in science and statistics.
+            </p>
+        </div>
+
+        <!-- RIGHT: RESULTS -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Results</h3>
+
+            <div id="pd-summary" class="tool-note">
+                Enter values and click <strong>Calculate</strong> to see the results.
+            </div>
+
+            <div class="tool-stats">
+                <ul>
+                    <li>
+                        Percentage change (from A to B):
+                        <strong id="pd-change-value">–</strong>
+                        <span id="pd-change-direction"></span>
+                    </li>
+                    <li>
+                        Percentage difference (symmetric):
+                        <strong id="pd-diff-value">–</strong>
+                    </li>
+                    <li>
+                        B as a percentage of A:
+                        <strong id="pd-b-of-a">–</strong>
+                    </li>
+                    <li>
+                        A as a percentage of B:
+                        <strong id="pd-a-of-b">–</strong>
+                    </li>
+                </ul>
+            </div>
+
+            <p class="tool-note">
+                Results are rounded to two decimal places. This tool is for general information and does not account for things like tax, fees or inflation.
+            </p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/percentage-difference.js"></script>
+}
+
+<style>
+    #pd-change-direction {
+        margin-left: 0.25rem;
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+</style>

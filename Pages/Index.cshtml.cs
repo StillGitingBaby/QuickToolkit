@@ -21,6 +21,7 @@ namespace QuickToolbox.Pages
                 ["Tournament"] = "Games",
                 ["League"] = "Games",
                 ["TeamRandomiser"] = "Games",
+                ["PercentageDifference"] = "Numbers",
                 // add more here as you go
             };
 
