@@ -4,28 +4,53 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - QuickToolbox</title>
+
+    <!-- Apply stored theme preference before styles load -->
+    <script>
+        (function () {
+            try {
+                var stored = localStorage.getItem('qt-theme');
+                if (stored === 'light' || stored === 'dark') {
+                    document.documentElement.setAttribute('data-theme', stored);
+                }
+            } catch (e) {
+                // Ignore if localStorage not available
+            }
+        })();
+    </script>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/QuickToolbox.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm app-navbar mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">QuickToolbox</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/CookiePolicy">Cookies</a>
                         </li>
                     </ul>
+
+                    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        🌙
+                    </button>
                 </div>
             </div>
         </nav>
@@ -41,11 +66,7 @@
             <button id="cookie-accept">Accept</button>
             <button id="cookie-reject">Reject</button>
         </div>
-
-    
     </div>
-
-
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -65,13 +86,13 @@
         </p>
     </footer>
 
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/js/chart-helper.js"></script>
     <script src="~/js/cookies.js"></script>
+    <script src="~/js/theme.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

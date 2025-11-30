@@ -5,43 +5,52 @@
 }
 
 <section class="tool-page">
-    <h2>Text Cleaner &amp; Formatter</h2>
-    <p>Clean up copied text by removing extra spaces and blank lines, and normalising formatting.</p>
+    <header class="tool-header">
+        <h2>Text Cleaner &amp; Formatter</h2>
+        <p>Clean up copied text by removing extra spaces and blank lines, and normalising formatting.</p>
+    </header>
 
-    <div class="tool-layout">
-        <div class="tool-input">
-            <label for="tf-input">Input text</label>
-            <textarea id="tf-input" rows="10" placeholder="Paste your text here..."></textarea>
+    <div class="tool-layout responsive-stack">
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Input</h3>
+            <div class="form-row">
+                <label class="form-label" for="tf-input">Input text</label>
+                <textarea class="form-input form-input-multiline" id="tf-input" rows="10" placeholder="Paste your text here..."></textarea>
+            </div>
         </div>
 
-        <div class="tool-input">
-            <label for="tf-output">Output text</label>
-            <textarea id="tf-output" rows="10" placeholder="Formatted text will appear here..."></textarea>
+        <div class="tool-section tool-output">
+            <h3 class="tool-section-title">Output</h3>
+            <div class="form-row">
+                <label class="form-label" for="tf-output">Output text</label>
+                <textarea class="form-input form-input-multiline" id="tf-output" rows="10" placeholder="Formatted text will appear here..."></textarea>
+            </div>
         </div>
     </div>
 
-    <div class="tool-controls">
-        <h3>Options</h3>
+    <section class="tool-section tool-controls">
+        <h3 class="tool-section-title">Options</h3>
+
         <div class="tf-options">
-            <label>
-                <input type="checkbox" id="tf-trim-lines" checked>
-                Trim spaces at the start and end of each line
+            <label class="checkbox-row">
+                <input type="checkbox" id="tf-trim-lines" checked />
+                <span>Trim spaces at the start and end of each line</span>
             </label>
-            <label>
-                <input type="checkbox" id="tf-collapse-spaces" checked>
-                Collapse multiple spaces into one
+            <label class="checkbox-row">
+                <input type="checkbox" id="tf-collapse-spaces" checked />
+                <span>Collapse multiple spaces into one</span>
             </label>
-            <label>
-                <input type="checkbox" id="tf-remove-empty-lines" checked>
-                Remove empty lines
+            <label class="checkbox-row">
+                <input type="checkbox" id="tf-remove-empty-lines" checked />
+                <span>Remove empty lines</span>
             </label>
-            <label>
-                <input type="checkbox" id="tf-single-line">
-                Convert all line breaks to a single line
+            <label class="checkbox-row">
+                <input type="checkbox" id="tf-single-line" />
+                <span>Convert all line breaks to a single line</span>
             </label>
-            <label>
-                <input type="checkbox" id="tf-fix-punctuation">
-                Fix spacing around punctuation (e.g. "Hello , world !" → "Hello, world!")
+            <label class="checkbox-row">
+                <input type="checkbox" id="tf-fix-punctuation" />
+                <span>Fix spacing around punctuation (e.g. "Hello , world !" → "Hello, world!")</span>
             </label>
         </div>
 
@@ -49,9 +58,7 @@
             <button type="button" id="tf-clean">Clean text</button>
             <button type="button" id="tf-copy">Copy output</button>
         </div>
-
-
-    </div>
+    </section>
 
     <p class="tool-note">
         All formatting happens in your browser – your text is not uploaded anywhere.

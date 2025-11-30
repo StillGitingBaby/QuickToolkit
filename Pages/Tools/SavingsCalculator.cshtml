@@ -5,59 +5,62 @@
 }
 
 <section class="tool-page">
-    <h2>Savings Goal Calculator</h2>
-    <p>
-        Estimate how long it could take to reach a savings goal with regular contributions and interest.
-    </p>
+    <header class="tool-header">
+        <h2>Savings Goal Calculator</h2>
+        <p>
+            Estimate how long it could take to reach a savings goal with regular contributions and interest.
+        </p>
+    </header>
 
-    <div class="tool-layout">
-        <div class="tool-input">
+    <div class="tool-layout responsive-stack">
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Inputs</h3>
+
             <div class="form-row">
-                <label for="sv-start">Current balance</label>
-                <input id="sv-start" type="number" min="0" step="100" value="0" />
+                <label class="form-label" for="sv-start">Current balance</label>
+                <input class="form-input" id="sv-start" type="number" min="0" step="100" value="0" />
             </div>
 
             <div class="form-row">
-                <label for="sv-goal">Savings goal</label>
-                <input id="sv-goal" type="number" min="0" step="100" value="10000" />
+                <label class="form-label" for="sv-goal">Savings goal</label>
+                <input class="form-input" id="sv-goal" type="number" min="0" step="100" value="10000" />
             </div>
 
             <div class="form-row">
-                <label for="sv-monthly">Monthly contribution</label>
-                <input id="sv-monthly" type="number" min="0" step="10" value="200" />
+                <label class="form-label" for="sv-monthly">Monthly contribution</label>
+                <input class="form-input" id="sv-monthly" type="number" min="0" step="10" value="200" />
             </div>
 
             <div class="form-row">
-                <label for="sv-rate">Annual interest rate (%)</label>
-                <input id="sv-rate" type="number" min="0" step="0.1" value="3" />
+                <label class="form-label" for="sv-rate">Annual interest rate (%)</label>
+                <input class="form-input" id="sv-rate" type="number" min="0" step="0.1" value="3" />
             </div>
 
             <div class="form-row">
-                <label for="sv-max-years">Maximum years to simulate</label>
-                <input id="sv-max-years" type="number" min="1" max="100" step="1" value="50" />
+                <label class="form-label" for="sv-max-years">Maximum years to simulate</label>
+                <input class="form-input" id="sv-max-years" type="number" min="1" max="100" step="1" value="50" />
             </div>
 
-            <div class="form-row">
+            <div class="form-row form-action">
                 <button type="button" id="sv-calc-btn">Calculate</button>
             </div>
         </div>
 
-        <div class="tool-stats">
-            <h3>Results</h3>
-            <ul>
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Results</h3>
+            <ul class="tool-result-list">
                 <li>Time to reach goal: <strong id="sv-time">–</strong></li>
                 <li>Total contributions: <strong id="sv-total-contrib">–</strong></li>
                 <li>Total interest earned: <strong id="sv-total-interest">–</strong></li>
                 <li>Final balance: <strong id="sv-final-balance">–</strong></li>
             </ul>
 
-            <section class="savings-chart">
-                <h3>Balance over time</h3>
-                <div class="loan-chart-wrapper">
+            <section class="tool-section savings-chart">
+                <h3 class="tool-section-title">Balance over time</h3>
+                <div class="tool-chart-wrapper">
                     <canvas id="savings-balance-chart"></canvas>
                 </div>
             </section>
-
 
             <p class="tool-note">
                 This is a simple projection. Real returns may vary and this does not include fees or tax.

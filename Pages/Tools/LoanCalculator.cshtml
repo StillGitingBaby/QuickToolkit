@@ -5,41 +5,47 @@
 }
 
 <section class="tool-page">
-    <h2>Loan Repayment Calculator</h2>
-    <p>
-        Estimate your monthly repayment, total amount repaid, and total interest for a fixed-rate loan.
-    </p>
+    <header class="tool-header">
+        <h2>Loan Repayment Calculator</h2>
+        <p>
+            Estimate your monthly repayment, total amount repaid, and total interest for a fixed-rate loan.
+        </p>
+    </header>
 
-    <div class="tool-layout loan-layout">
-        <div class="tool-input">
+    <div class="tool-layout responsive-stack">
+        <!-- Inputs -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Inputs</h3>
+
             <div class="form-row">
-                <label for="loan-amount">Loan amount</label>
-                <input id="loan-amount" type="number" min="0" step="100" value="10000" />
+                <label class="form-label" for="loan-amount">Loan amount</label>
+                <input class="form-input" id="loan-amount" type="number" min="0" step="100" value="10000" />
             </div>
 
             <div class="form-row">
-                <label for="loan-rate">Annual interest rate (%)</label>
-                <input id="loan-rate" type="number" min="0" step="0.1" value="5" />
+                <label class="form-label" for="loan-rate">Annual interest rate (%)</label>
+                <input class="form-input" id="loan-rate" type="number" min="0" step="0.1" value="5" />
             </div>
 
             <div class="form-row">
-                <label for="loan-years">Term (years)</label>
-                <input id="loan-years" type="number" min="1" max="40" step="1" value="5" />
+                <label class="form-label" for="loan-years">Term (years)</label>
+                <input class="form-input" id="loan-years" type="number" min="1" step="1" value="5" />
             </div>
 
             <div class="form-row">
-                <label for="loan-extra">Extra monthly payment (optional)</label>
-                <input id="loan-extra" type="number" min="0" step="10" value="0" />
+                <label class="form-label" for="loan-extra">Extra monthly payment (optional)</label>
+                <input class="form-input" id="loan-extra" type="number" min="0" step="10" value="0" />
             </div>
 
-            <div class="form-row">
+            <div class="form-row form-action">
                 <button type="button" id="loan-calc-btn">Calculate</button>
             </div>
         </div>
 
-        <div class="tool-stats loan-results">
-            <h3>Results</h3>
-            <ul>
+        <!-- Results -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Results</h3>
+            <ul class="tool-result-list">
                 <li>Monthly payment: <strong id="loan-monthly">–</strong></li>
                 <li>Total paid: <strong id="loan-total-paid">–</strong></li>
                 <li>Total interest: <strong id="loan-total-interest">–</strong></li>
@@ -50,42 +56,43 @@
                 This is a simple fixed-rate amortisation estimate and does not account for fees or changing interest rates.
             </p>
         </div>
-
-        <section class="loan-chart">
-            <h3>Balance over time</h3>
-            <div class="loan-chart-wrapper">
-                <canvas id="loan-balance-chart"></canvas>
-            </div>
-        </section>
-
-
-        <section class="loan-amortisation">
-            <h3>Amortisation schedule</h3>
-            <p class="tool-note">
-                Showing how each payment is split between interest and principal, and how the balance reduces over time.
-            </p>
-
-            <div class="loan-amortisation-table-wrapper">
-                <table class="loan-amort-table">
-                    <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>Payment</th>
-                            <th>Interest</th>
-                            <th>Principal</th>
-                            <th>Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody id="loan-amort-body">
-                        <tr>
-                            <td colspan="5">Enter loan details above to see the schedule.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
     </div>
+
+    <!-- Chart -->
+    <section class="tool-section loan-chart">
+        <h3 class="tool-section-title">Balance over time</h3>
+        <div class="tool-chart-wrapper">
+            <canvas id="loan-balance-chart"></canvas>
+        </div>
+    </section>
+
+    <!-- Amortisation table -->
+    <section class="tool-section loan-amortisation">
+        <h3 class="tool-section-title">Amortisation schedule</h3>
+        <p class="tool-note">
+            Showing how each payment is split between interest and principal, and how the balance reduces over time.
+        </p>
+
+        <div class="tool-table-wrapper">
+            <table class="tool-table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Payment</th>
+                        <th>Interest</th>
+                        <th>Principal</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody id="loan-amort-body">
+                    <tr>
+                        <td colspan="5">Enter loan details above to see the schedule.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
 </section>
 
 @section Scripts {

@@ -5,17 +5,23 @@
 }
 
 <section class="tool-page">
-    <h2>Word &amp; Character Counter</h2>
-    <p>Type or paste your text below to see live word and character counts.</p>
+    <header class="tool-header">
+        <h2>Word &amp; Character Counter</h2>
+        <p>Type or paste your text below to see live word and character counts.</p>
+    </header>
 
-    <div class="tool-layout">
-        <div class="tool-input">
-            <textarea id="wc-input" rows="10" placeholder="Start typing here..."></textarea>
+    <div class="tool-layout responsive-stack">
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Text</h3>
+            <div class="form-row">
+                <label class="form-label" for="wc-input">Input text</label>
+                <textarea class="form-input form-input-multiline" id="wc-input" rows="10" placeholder="Start typing here..."></textarea>
+            </div>
         </div>
 
-        <div class="tool-stats">
-            <h3>Counts</h3>
-            <ul>
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Counts</h3>
+            <ul class="tool-result-list">
                 <li>Words: <strong id="wc-words">0</strong></li>
                 <li>Characters (with spaces): <strong id="wc-chars-with">0</strong></li>
                 <li>Characters (no spaces): <strong id="wc-chars-no">0</strong></li>
