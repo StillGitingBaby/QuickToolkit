@@ -461,3 +461,103 @@ a {
             flex: 1 1 140px; /* stack nicely but not full-width blobs */
         }
 }
+
+
+/* ----------------------------
+   TOURNAMENT BRACKET LAYOUT
+   ---------------------------- */
+
+.bracket-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bracket-rounds {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    min-width: max(100%, 480px);
+}
+
+/* Each round is a column */
+.bracket-round {
+    flex: 0 0 200px;
+}
+
+.bracket-round-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+}
+
+/* Each match card */
+.bracket-match {
+    border: 1px solid var(--border-colour);
+    border-radius: 4px;
+    padding: 0.4rem;
+    margin-bottom: 0.75rem;
+    background: var(--bg-card);
+    font-size: 0.85rem;
+}
+
+/* Player rows */
+.bracket-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+}
+
+    .bracket-player:last-child {
+        margin-bottom: 0;
+    }
+
+.bracket-player-name {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Winner state */
+.bracket-player.winner .bracket-player-name {
+    font-weight: bold;
+}
+
+/* Buttons */
+.bracket-player button {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* Disabled match (future round with no players yet) */
+.bracket-match.empty .bracket-player-name {
+    opacity: 0.5;
+}
+
+/* Final winner badge */
+.bracket-final-winner {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+    .bracket-round {
+        flex: 0 0 180px;
+    }
+
+    .bracket-match {
+        font-size: 0.8rem;
+        padding: 0.35rem;
+    }
+
+    .bracket-player button {
+        padding: 0.15rem 0.4rem;
+        font-size: 0.75rem;
+    }
+}

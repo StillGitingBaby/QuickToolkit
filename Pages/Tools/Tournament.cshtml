@@ -1,0 +1,100 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.TournamentModel
+@{
+    ViewData["Title"] = "Tournament Bracket Generator";
+}
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Tournament Bracket Generator</h2>
+        <p>
+            Enter player names, generate a single-elimination bracket, then click winners to advance them through the rounds.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- INPUTS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Players</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="tt-players">
+                    One name per line
+                </label>
+                <textarea class="form-input form-input-multiline" id="tt-players" rows="10"
+                          placeholder="Alice
+Bob
+Charlie
+Dave
+Eve"></textarea>
+            </div>
+
+
+            <p class="tool-note">
+                Bracket will automatically add byes if the number of players is not a power of two.
+            </p>
+
+            <div class="form-row form-action">
+                <button type="button" id="tt-randomise" class="btn btn-secondary">Randomise seed</button>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="tt-start" class="btn btn-primary">Start tournament</button>
+            </div>
+
+            <div class="form-row form-action">
+                <button type="button" id="tt-undo" class="btn btn-secondary" disabled>Undo last result</button>
+            </div>
+
+        </div>
+
+        <!-- BRACKET -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Bracket</h3>
+            <div id="tt-message" class="tool-note">
+                Enter some names and click <strong>Start tournament</strong> to generate a bracket.
+            </div>
+
+            <div class="bracket-wrapper">
+                <div id="tt-bracket" class="bracket-rounds">
+                    <!-- Bracket rounds will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="tool-note">
+        All bracket logic runs in your browser. Nothing is uploaded.
+    </p>
+</section>
+
+@section Scripts {
+    <script src="~/js/tournament.js"></script>
+}
+<style>
+    /* Winner highlight */
+    .bracket-player.winner {
+        background-color: var(--winner-bg, #d4edda);
+        border-radius: 4px;
+    }
+
+    [data-theme="dark"] .bracket-player.winner {
+        --winner-bg: #234f2e;
+    }
+
+    /* Loser dim */
+    .bracket-player.loser {
+        opacity: 0.5;
+    }
+
+    /* Whole match resolved */
+    .bracket-match.resolved {
+        border-color: var(--winner-border, #28a745);
+        box-shadow: 0 0 4px rgba(40, 167, 69, 0.4);
+    }
+
+    [data-theme="dark"] .bracket-match.resolved {
+        --winner-border: #3ddc84;
+    }
+
+</style>
