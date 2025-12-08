@@ -1,0 +1,169 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.FlagGeneratorModel
+@{
+    ViewData["Title"] = "Flag Generator – Create Custom Flags Online";
+    ViewData["Description"] = "Design custom flags with stripes, crosses, diagonals and emblems. Choose colours, layouts and export your flag as SVG or PNG – all in your browser.";
+}
+
+<section class="tool-seo">
+    <h2>Design your own custom flag online</h2>
+    <p>
+        This free flag generator lets you design simple, clean flags directly in your browser.
+        Mix horizontal and vertical stripes, crosses, diagonals, saltires, cantons, borders and
+        triangle designs, then finish things off with emblems such as stars, circles, diamonds or
+        sun bursts.
+    </p>
+    <p>
+        You can fine-tune every colour on the flag, randomise designs for inspiration, or generate
+        a consistent flag from any piece of text – ideal for fictional countries, clubs, games or
+        classroom projects. When you are happy with the design, export it as a crisp SVG for
+        logos and print, or as a PNG for quick use on the web and in presentations.
+    </p>
+    <h3>What you can do with the Flag Generator</h3>
+    <ul>
+        <li>Create flags with stripes, crosses, saltires, borders and triangle layouts.</li>
+        <li>Control the colour of every segment and add optional emblems.</li>
+        <li>Use random flag and random from text modes for quick ideas.</li>
+        <li>Download high-quality SVG or PNG files ready to use anywhere.</li>
+    </ul>
+</section>
+
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Flag Generator</h2>
+        <p>
+            Create simple flags with stripes and crosses. Adjust layout and colours, randomise designs,
+            and export as SVG or PNG.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: CONTROLS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Flag settings</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="fg-layout">Layout</label>
+                <select id="fg-layout" class="form-input">
+                    <option value="horizontal">Horizontal stripes</option>
+                    <option value="vertical">Vertical stripes</option>
+                    <option value="cross">Centred cross</option>
+                    <option value="nordic">Nordic cross</option>
+                    <option value="diagonal">Diagonal split</option>
+                    <option value="quartered">Quartered blocks</option>
+                    <option value="saltire">Saltire (diagonal cross)</option>
+                    <option value="canton">Stripes with canton</option>
+                    <option value="verticalBand">Vertical centre band</option>
+                    <option value="border">Bordered flag</option>
+                    <option value="triangleHoist">Triangle at hoist</option>
+                </select>
+
+            </div>
+
+            <div class="form-row" id="fg-stripe-row">
+                <label class="form-label" for="fg-stripes">Number of stripes</label>
+                <input id="fg-stripes"
+                       class="form-input"
+                       type="number"
+                       min="2"
+                       max="6"
+                       value="3" />
+            </div>
+
+            <h3 class="tool-section-title">Base palette</h3>
+
+            <div class="form-row fg-colour-row">
+                <label class="form-label" for="fg-colour-1">Primary</label>
+                <input id="fg-colour-1" class="form-input" type="color" value="#002b5b" />
+            </div>
+            <div class="form-row fg-colour-row">
+                <label class="form-label" for="fg-colour-2">Secondary</label>
+                <input id="fg-colour-2" class="form-input" type="color" value="#f5f5f5" />
+            </div>
+            <div class="form-row fg-colour-row">
+                <label class="form-label" for="fg-colour-3">Accent</label>
+                <input id="fg-colour-3" class="form-input" type="color" value="#d72638" />
+            </div>
+
+            <h3 class="tool-section-title">Segment colours</h3>
+            <div id="fg-segment-colours" class="fg-segment-colours">
+                <!-- Built dynamically in JS based on layout -->
+            </div>
+            <div class="form-row fg-button-row">
+                <button type="button" id="fg-reset-segments" class="btn btn-secondary">
+                    Reset segment colours
+                </button>
+            </div>
+            <h3 class="tool-section-title">Emblem</h3>
+            <div class="form-row">
+                <label class="form-label">
+                    <input type="checkbox" id="fg-emblem-enabled" />
+                    Add emblem (uses its own colour)
+                </label>
+            </div>
+            <div class="form-row">
+                <label class="form-label" for="fg-emblem-type">Emblem type</label>
+                <select id="fg-emblem-type" class="form-input">
+                    <option value="circle">Circle</option>
+                    <option value="star">Star</option>
+                    <option value="diamond">Diamond</option>
+                    <option value="ring">Ring</option>
+                    <option value="triple-star">Triple stars</option>
+                    <option value="square">Square</option>
+                    <option value="sun">Sun burst</option>
+                </select>
+
+            </div>
+
+            <h3 class="tool-section-title">Random</h3>
+
+            <div class="form-row fg-button-row">
+                <button type="button" id="fg-random" class="btn btn-primary">Random flag</button>
+                <button type="button" id="fg-random-colours" class="btn btn-secondary">Random colours</button>
+            </div>
+            <div class="form-row fg-button-row">
+                <button type="button" id="fg-reset" class="btn btn-secondary">Reset</button>
+            </div>
+
+            <div class="form-row">
+                <label class="form-label" for="fg-seed-text">Random from text</label>
+                <input id="fg-seed-text"
+                       class="form-input"
+                       type="text"
+                       placeholder="e.g. Maldon Rovers" />
+            </div>
+            <div class="form-row fg-button-row">
+                <button type="button" id="fg-random-seed" class="btn btn-secondary">
+                    Random from text
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT: PREVIEW + EXPORT -->
+        <div class="tool-section tool-output">
+            <h3 class="tool-section-title">Preview</h3>
+
+            <div class="flag-preview-wrapper">
+                <svg id="flag-preview"
+                     viewBox="0 0 300 200"
+                     role="img"
+                     aria-label="Generated flag preview">
+                </svg>
+            </div>
+
+            <div class="form-row fg-button-row fg-download-row">
+                <button type="button" id="fg-download-svg" class="btn btn-primary">Download SVG</button>
+                <button type="button" id="fg-download-png" class="btn btn-secondary">Download PNG</button>
+            </div>
+
+            <p class="tool-hint">
+                Tip: SVGs scale cleanly to any size – perfect for logos, icons, or presentations.
+            </p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/flag-generator.js" asp-append-version="true"></script>
+}

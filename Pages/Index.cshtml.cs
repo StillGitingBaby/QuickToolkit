@@ -64,6 +64,14 @@ namespace QuickToolbox.Pages
                 Url = "/Tools/TypographyScaleGenerator",
                 Tagline = "Generate responsive font scales for headings and body text."
             }
+            ,
+            new ToolInfo
+            {
+                Name = "Flag Generator",
+                Url = "/Tools/FlagGenerator",
+                Tagline = "Generate unique flags."
+            }
+
         }
     },
 

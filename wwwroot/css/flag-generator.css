@@ -1,0 +1,48 @@
+﻿.flag-preview-wrapper {
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent), radial-gradient(circle at bottom right, rgba(0,0,0,0.4), transparent), #020617;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    aspect-ratio: 3 / 2;
+}
+
+    .flag-preview-wrapper svg {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+.fg-button-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+    .fg-button-row .btn {
+        flex: 1 1 auto;
+    }
+
+.fg-hidden {
+    display: none;
+}
+
+.fg-segment-colours {
+    margin-top: 0.5rem;
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+}
+
+    .fg-segment-colours .form-row {
+        margin-bottom: 0.35rem;
+    }
+
+.fg-disabled {
+    opacity: 0.7;
+}

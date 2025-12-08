@@ -1,30 +1,10 @@
-﻿@page
-@model QuickToolbox.Pages.Tools.GradientGeneratorModel
+﻿@model QuickToolbox.Pages.Tools.GradientGeneratorModel
 @{
-    ViewData["Title"] = "CSS Gradient Generator";
+    ViewData["Title"] = "CSS Gradient Generator – Create Linear & Radial Gradients Online | QuickToolkit";
+    ViewData["Description"] = "Interactive CSS gradient generator with multiple layers, linear and radial modes, colour stops, transparency, angle control, Tailwind output and PNG export.";
 }
 
 @section HeadMeta {
-    <title>CSS Gradient Generator – Create Linear & Radial Gradients Online | QuickToolkit</title>
-
-    <meta name="description" content="Interactive CSS gradient generator with multiple layers, linear and radial modes, colour stops, transparency, angle control, Tailwind output and PNG export. Free, fast and works entirely in your browser." />
-
-    <link rel="canonical" href="@($"https://quicktoolkit.co.uk{Context.Request.Path}")" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="CSS Gradient Generator – QuickToolkit" />
-    <meta property="og:description" content="Build and preview layered CSS gradients with angle control, transparency and export to CSS, Tailwind or PNG." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="@($"https://quicktoolkit.co.uk{Context.Request.Path}")" />
-    <meta property="og:image" content="https://quicktoolkit.co.uk/images/gradient-preview-card.png" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CSS Gradient Generator – QuickToolkit" />
-    <meta name="twitter:description" content="Interactive CSS gradient creator with multiple layers, colour stops, transparency controls and live preview." />
-    <meta name="twitter:image" content="https://quicktoolkit.co.uk/images/gradient-preview-card.png" />
-
-    <!-- Structured Data -->
     <script type="application/ld+json">
         {
           "@@context": "https://schema.org/",
@@ -41,7 +21,6 @@
         }
     </script>
 }
-
 
 
 <section class="tool-page">
