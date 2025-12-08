@@ -54,6 +54,12 @@ namespace QuickToolbox.Pages
             },
             new ToolInfo
             {
+                Name = "CSS Gradient Generator",
+                Url = "/Tools/GradientGenerator",
+                Tagline = "Create linear and radial gradients with custom colour stops."
+            },
+            new ToolInfo
+            {
                 Name = "Typography Scale Generator",
                 Url = "/Tools/TypographyScaleGenerator",
                 Tagline = "Generate responsive font scales for headings and body text."

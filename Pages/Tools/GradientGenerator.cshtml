@@ -1,0 +1,209 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.GradientGeneratorModel
+@{
+    ViewData["Title"] = "CSS Gradient Generator";
+}
+
+@section HeadMeta {
+    <title>CSS Gradient Generator – Create Linear & Radial Gradients Online | QuickToolkit</title>
+
+    <meta name="description" content="Interactive CSS gradient generator with multiple layers, linear and radial modes, colour stops, transparency, angle control, Tailwind output and PNG export. Free, fast and works entirely in your browser." />
+
+    <link rel="canonical" href="@($"https://quicktoolkit.co.uk{Context.Request.Path}")" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="CSS Gradient Generator – QuickToolkit" />
+    <meta property="og:description" content="Build and preview layered CSS gradients with angle control, transparency and export to CSS, Tailwind or PNG." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@($"https://quicktoolkit.co.uk{Context.Request.Path}")" />
+    <meta property="og:image" content="https://quicktoolkit.co.uk/images/gradient-preview-card.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CSS Gradient Generator – QuickToolkit" />
+    <meta name="twitter:description" content="Interactive CSS gradient creator with multiple layers, colour stops, transparency controls and live preview." />
+    <meta name="twitter:image" content="https://quicktoolkit.co.uk/images/gradient-preview-card.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "WebApplication",
+          "name": "CSS Gradient Generator",
+          "applicationCategory": "WebDesignTool",
+          "operatingSystem": "Web",
+          "description": "Create layered CSS gradients with control over colour stops, angles, transparency and export formats. Works entirely in the browser.",
+          "url": "https://quicktoolkit.co.uk/Tools/GradientGenerator",
+          "creator": {
+            "@@type": "Organization",
+            "name": "QuickToolkit"
+          }
+        }
+    </script>
+}
+
+
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>CSS Gradient Generator</h2>
+        <p>
+            Build layered linear and radial gradients with as many colour stops as you like.
+            Adjust direction and shape, add transparent layers, then copy the CSS or Tailwind
+            class – or export the gradient as a PNG image.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: Layers + controls -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Layers</h3>
+
+            <div id="grad-layers" class="grad-layer-list">
+                <!-- JS will populate layer tabs here -->
+            </div>
+
+            <div class="form-row grad-layer-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="grad-add-layer">
+                    Add layer (top, transparent)
+                </button>
+            </div>
+
+            <hr />
+
+            <h3 class="tool-section-title">Gradient settings</h3>
+
+            <div class="form-row">
+                <label class="form-label" for="grad-type">Type</label>
+                <select id="grad-type" class="form-input">
+                    <option value="linear">Linear gradient</option>
+                    <option value="radial">Radial gradient</option>
+                </select>
+            </div>
+
+            <!-- Linear options -->
+            <div id="grad-linear-options">
+                <label class="form-label">Direction</label>
+
+                <div class="gradient-dial-container">
+                    <div id="grad-dial" class="gradient-dial">
+                        <div id="grad-dial-indicator" class="gradient-dial-indicator"></div>
+                    </div>
+                    <div class="gradient-dial-angle">
+                        <span id="grad-angle-display">90°</span>
+                    </div>
+                </div>
+
+                <!-- Hidden backing field for angle -->
+                <input type="hidden" id="grad-angle" value="90" />
+            </div>
+
+            <!-- Radial options -->
+            <div id="grad-radial-options" class="hidden">
+                <div class="form-row">
+                    <label class="form-label" for="grad-shape">Shape</label>
+                    <select id="grad-shape" class="form-input">
+                        <option value="ellipse">Ellipse</option>
+                        <option value="circle">Circle</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="grad-size">Size</label>
+                    <select id="grad-size" class="form-input">
+                        <option value="farthest-corner">Farthest corner</option>
+                        <option value="closest-corner">Closest corner</option>
+                        <option value="farthest-side">Farthest side</option>
+                        <option value="closest-side">Closest side</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="grad-position">Position</label>
+                    <select id="grad-position" class="form-input">
+                        <option value="center center">Centre</option>
+                        <option value="top left">Top left</option>
+                        <option value="top center">Top centre</option>
+                        <option value="top right">Top right</option>
+                        <option value="center left">Centre left</option>
+                        <option value="center right">Centre right</option>
+                        <option value="bottom left">Bottom left</option>
+                        <option value="bottom center">Bottom centre</option>
+                        <option value="bottom right">Bottom right</option>
+                    </select>
+                </div>
+            </div>
+
+            <hr />
+
+            <h3 class="tool-section-title">Colour stops</h3>
+
+            <div id="grad-stops">
+                <!-- JS renders stop rows here -->
+            </div>
+
+            <div class="form-row grad-stop-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="grad-add-stop">
+                    Add colour stop
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="grad-random-colours">
+                    Random colours
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="grad-random-all">
+                    Random gradient
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="grad-reverse-stops">
+                    Reverse gradient
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="grad-distribute-stops">
+                    Distribute evenly
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT: Preview + outputs -->
+        <div class="tool-section tool-results">
+            <h3 class="tool-section-title">Preview</h3>
+
+            <div id="grad-preview" class="gradient-preview"></div>
+
+            <h3 class="tool-section-title" style="margin-top: 1.5rem;">CSS</h3>
+
+            <div class="form-row">
+                <textarea id="grad-css-output"
+                          class="form-input form-input-multiline"
+                          rows="4"
+                          readonly></textarea>
+            </div>
+
+            <h3 class="tool-section-title" style="margin-top: 1rem;">Tailwind (arbitrary value)</h3>
+
+            <div class="form-row">
+                <textarea id="grad-tailwind-output"
+                          class="form-input form-input-multiline"
+                          rows="3"
+                          readonly></textarea>
+            </div>
+
+            <div class="form-row grad-output-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="grad-copy-css">
+                    Copy CSS
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="grad-copy-tailwind">
+                    Copy Tailwind
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="grad-export-png">
+                    Download PNG
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p class="tool-note">
+        Everything runs locally in your browser – gradients and layers are not uploaded or stored.
+    </p>
+</section>
+
+@section Scripts {
+    <script src="~/js/gradient-generator.js" asp-append-version="true"></script>
+}
