@@ -1,0 +1,257 @@
+﻿@page
+@model QuickToolbox.Pages.Tools.FootballKitGeneratorModel
+@{
+    ViewData["Title"] = "Football Kit Generator";
+}
+
+@section HeadMeta {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org/",
+          "@@type": "SoftwareApplication",
+          "name": "Football Kit Generator",
+          "description": "Create fully custom football kits online. Edit colours, patterns, badges, sponsors, shorts and socks, then download as a high-resolution PNG.",
+          "url": "https://quicktoolkit.co.uk/tools/footballkitgenerator/",
+          "applicationCategory": "DesignApplication",
+          "operatingSystem": "Any",
+          "offers": {
+            "@@type": "Offer",
+            "price": "0",
+            "priceCurrency": "GBP"
+          }
+        }
+    </script>
+}
+
+
+<section class="tool-page">
+    <header class="tool-header">
+        <h2>Football Kit Generator</h2>
+        <p>
+            Create custom football shirt designs with different templates, colours, badges, shorts, socks and sponsors.
+            Randomise a design or fine-tune every detail, then download as a PNG.
+        </p>
+    </header>
+
+    <div class="tool-layout responsive-stack">
+        <!-- LEFT: CONTROLS -->
+        <div class="tool-section tool-input">
+            <h3 class="tool-section-title">Kit settings</h3>
+
+            <!-- Template -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Template</legend>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-template">Shirt template</label>
+                    <select id="kit-template" class="form-select">
+                        <option value="plain">Plain</option>
+                        <option value="stripes-vertical">Vertical stripes</option>
+                        <option value="hoops">Horizontal hoops</option>
+                        <option value="sash">Diagonal sash</option>
+                        <option value="halves">Halves</option>
+                        <option value="quarters">Quarters</option>
+                        <option value="modern-panel">Modern panels</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- Colours -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Colours</legend>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-colour-primary">Primary</label>
+                    <input id="kit-colour-primary" type="color" class="form-input-colour" />
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-colour-secondary">Secondary / pattern</label>
+                    <input id="kit-colour-secondary" type="color" class="form-input-colour" />
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-colour-accent">Accent</label>
+                    <input id="kit-colour-accent" type="color" class="form-input-colour" />
+                </div>
+
+                <div class="form-row two-column">
+                    <div>
+                        <label class="form-label" for="kit-colour-sleeve">Sleeves</label>
+                        <input id="kit-colour-sleeve" type="color" class="form-input-colour" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="kit-colour-collar">Collar</label>
+                        <input id="kit-colour-collar" type="color" class="form-input-colour" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Shirt details -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Shirt details</legend>
+
+                <div class="form-row two-column">
+                    <div>
+                        <label class="form-label" for="kit-sleeve-style">Sleeve style</label>
+                        <select id="kit-sleeve-style" class="form-select">
+                            <option value="short">Short sleeves</option>
+                            <option value="long">Long sleeves</option>
+                            <option value="raglan">Raglan style</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="kit-collar-style">Collar</label>
+                        <select id="kit-collar-style" class="form-select">
+                            <option value="round">Round neck</option>
+                            <option value="v-neck">V neck</option>
+                            <option value="polo">Polo collar</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Badge -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Badge</legend>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-badge-shape">Badge shape</label>
+                    <select id="kit-badge-shape" class="form-select">
+                        <option value="none">None</option>
+                        <option value="circle">Circle</option>
+                        <option value="shield">Shield</option>
+                        <option value="diamond">Diamond</option>
+                    </select>
+                </div>
+
+                <div class="form-row two-column">
+                    <div>
+                        <label class="form-label" for="kit-badge-main">Badge main</label>
+                        <input id="kit-badge-main" type="color" class="form-input-colour" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="kit-badge-secondary">Badge accent</label>
+                        <input id="kit-badge-secondary" type="color" class="form-input-colour" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-badge-text">Badge text (initials)</label>
+                    <input id="kit-badge-text" class="form-input" maxlength="4" />
+                </div>
+            </fieldset>
+
+            <!-- Sponsor -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Sponsor</legend>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-sponsor-text">Sponsor text</label>
+                    <input id="kit-sponsor-text" class="form-input" />
+                </div>
+
+                <div class="form-row two-column">
+                    <div>
+                        <label class="form-label" for="kit-sponsor-font">Font</label>
+                        <select id="kit-sponsor-font" class="form-select">
+                            <option value="sans">Sans serif</option>
+                            <option value="condensed">Condensed</option>
+                            <option value="serif">Serif</option>
+                            <option value="script">Script</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="kit-sponsor-size">Size</label>
+                        <input id="kit-sponsor-size" type="range" min="18" max="40" value="28" class="form-range" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-sponsor-colour">Sponsor colour</label>
+                    <input id="kit-sponsor-colour" type="color" class="form-input-colour" />
+                </div>
+            </fieldset>
+
+            <!-- Shorts (no pattern selector) -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Shorts</legend>
+
+                <p class="qt-help-text">Short patterns are disabled for now – customise colours only.</p>
+
+                <div class="form-row two-column">
+                    <div>
+                        <label class="form-label" for="kit-shorts-primary">Shorts primary</label>
+                        <input id="kit-shorts-primary" type="color" class="form-input-colour" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="kit-shorts-secondary">Shorts secondary</label>
+                        <input id="kit-shorts-secondary" type="color" class="form-input-colour" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Socks -->
+            <fieldset class="qt-fieldset">
+                <legend class="qt-legend">Socks</legend>
+
+                <div class="form-row">
+                    <label class="form-label" for="kit-socks-pattern">Socks pattern</label>
+                    <select id="kit-socks-pattern" class="form-select">
+                        <option value="plain">Plain</option>
+                        <option value="hoops">Hoops</option>
+                        <option value="stripes-vertical">Vertical stripes</option>
+                    </select>
+                </div>
+
+                <div class="form-row two-column">
+                    <div>
+                        <label class="form-label" for="kit-socks-primary">Socks primary</label>
+                        <input id="kit-socks-primary" type="color" class="form-input-colour" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="kit-socks-secondary">Socks secondary</label>
+                        <input id="kit-socks-secondary" type="color" class="form-input-colour" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Actions -->
+            <div class="tool-actions">
+                <button type="button" id="kit-random-colours" class="btn btn-secondary">
+                    Random colours
+                </button>
+                <button type="button" id="kit-random-full" class="btn btn-secondary">
+                    Random full kit
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT: PREVIEW -->
+        <div class="tool-section tool-output">
+            <h3 class="tool-section-title">Preview</h3>
+
+            <div class="kit-preview-inner">
+                <div class="kit-preview-wrapper">
+                    <canvas id="kit-canvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+
+
+
+            <div class="tool-actions">
+                <button type="button" id="kit-download-btn" class="btn btn-primary">
+                    Download PNG
+                </button>
+            </div>
+
+            <p class="qt-help-text">
+                Tip: tweak colours and template first, then export at high resolution.
+            </p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/football-kit-generator.js"></script>
+}

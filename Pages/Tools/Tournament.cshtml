@@ -1,118 +1,247 @@
 ﻿@page
 @model QuickToolbox.Pages.Tools.TournamentModel
-
 @{
-    ViewData["Title"] = "Tournament Bracket Generator – QuickToolkit";
-    ViewData["Description"] =
-        "Generate knockout tournament brackets automatically. Easy match editing and progression tracking for events of any size.";
+    ViewData["Title"] = "Tournament Bracket Generator";
+    ViewData["Description"] = "Generate a single-elimination bracket, randomise seeds, and click winners to advance them through the rounds.";
 }
-
-@section HeadMeta {
-    <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org/",
-          "@@type": "SoftwareApplication",
-          "name": "Tournament Bracket Generator",
-          "applicationCategory": "SportsApplication",
-          "operatingSystem": "Web",
-          "description": "Generate knockout tournament brackets automatically. Easy match editing and progression tracking for events of any size.",
-          "url": "https://quicktoolkit.co.uk/tools/tournament/"
-        }
-    </script>
-}
-
 
 <section class="tool-page">
     <header class="tool-header">
-        <h2>Tournament Bracket Generator</h2>
+        <h1>TOURNAMENT BRACKET GENERATOR</h1>
         <p>
             Enter player names, generate a single-elimination bracket, then click winners to advance them through the rounds.
+            Bracket logic runs entirely in your browser.
         </p>
     </header>
 
     <div class="tool-layout responsive-stack">
-        <!-- INPUTS -->
+        <!-- LEFT: INPUT -->
         <div class="tool-section tool-input">
-            <h3 class="tool-section-title">Players</h3>
-
-            <div class="form-row">
-                <label class="form-label" for="tt-players">
-                    One name per line
-                </label>
-                <textarea class="form-input form-input-multiline" id="tt-players" rows="10"
-                          placeholder="Alice
-Bob
-Charlie
-Dave
-Eve"></textarea>
+            <div class="tt-players-header">
+                <div>
+                    <h3 class="tool-section-title">Players</h3>
+                    <p class="tt-players-subtitle">Paste or type one name per line.</p>
+                </div>
+                <span id="tt-player-count" class="tt-player-count">No players yet</span>
             </div>
 
+            <div class="form-row">
+                <label class="form-label form-label-small" for="tt-players">ONE NAME PER LINE</label>
+                <textarea id="tt-players"
+                          class="form-input-multiline"
+                          spellcheck="false"
+                          rows="10"
+                          placeholder="Alice&#10;Bob&#10;Charlie&#10;Dave&#10;Eve"></textarea>
+            </div>
 
             <p class="tool-note">
                 Bracket will automatically add byes if the number of players is not a power of two.
             </p>
 
-            <div class="form-row form-action">
-                <button type="button" id="tt-randomise" class="btn btn-secondary">Randomise seed</button>
+            <div class="tt-player-actions">
+                <button type="button" id="tt-start" class="btn btn-emar tt-btn-main">
+                    Start tournament
+                </button>
+
+                <button type="button" id="tt-randomise" class="btn btn-secondary">
+                    Randomise seed
+                </button>
+
+                <button type="button" id="tt-undo" class="btn btn-secondary" disabled>
+                    Undo last result
+                </button>
             </div>
 
-            <div class="form-row form-action">
-                <button type="button" id="tt-start" class="btn btn-primary">Start tournament</button>
-            </div>
-
-            <div class="form-row form-action">
-                <button type="button" id="tt-undo" class="btn btn-secondary" disabled>Undo last result</button>
-            </div>
-
+            <p class="tool-note small tt-players-footnote">
+                All bracket logic runs in your browser. Nothing is uploaded.
+            </p>
         </div>
 
-        <!-- BRACKET -->
-        <div class="tool-section tool-results">
+
+        <!-- RIGHT: BRACKET -->
+        <div class="tool-section tool-output">
             <h3 class="tool-section-title">Bracket</h3>
-            <div id="tt-message" class="tool-note">
-                Enter some names and click <strong>Start tournament</strong> to generate a bracket.
-            </div>
+
+            <div id="tt-message" class="tool-note" style="min-height:1.25rem;"></div>
 
             <div class="bracket-wrapper">
-                <div id="tt-bracket" class="bracket-rounds">
-                    <!-- Bracket rounds will be injected here -->
+                <div class="bracket-rounds" id="tt-bracket">
+                    <!-- Rounds rendered here -->
                 </div>
             </div>
         </div>
     </div>
-
-    <p class="tool-note">
-        All bracket logic runs in your browser. Nothing is uploaded.
-    </p>
 </section>
 
 @section Scripts {
-    <script src="~/js/tournament.js"></script>
+    <script src="~/js/tournament.js" asp-append-version="true"></script>
 }
-<style>
-    /* Winner highlight */
-    .bracket-player.winner {
-        background-color: var(--winner-bg, #d4edda);
-        border-radius: 4px;
-    }
 
-    [data-theme="dark"] .bracket-player.winner {
-        --winner-bg: #234f2e;
-    }
+            <style>
+      /* ============================================
+   PLAYERS PANEL (LEFT)
+   ============================================ */
 
-    /* Loser dim */
-    .bracket-player.loser {
-        opacity: 0.5;
-    }
+.tt-players-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
 
-    /* Whole match resolved */
-    .bracket-match.resolved {
-        border-color: var(--winner-border, #28a745);
-        box-shadow: 0 0 4px rgba(40, 167, 69, 0.4);
-    }
+.tt-players-subtitle {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
 
-    [data-theme="dark"] .bracket-match.resolved {
-        --winner-border: #3ddc84;
-    }
+.tt-player-count {
+    font-size: 0.8rem;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-colour);
+    background: var(--bg-card);
+    white-space: nowrap;
+}
 
-</style>
+.tt-player-actions {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.tt-players-footnote {
+    margin-top: 0.75rem;
+}
+
+.tt-player-actions .tt-btn-main {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .08);
+}
+
+
+
+/* ============================================
+   BRACKET LAYOUT (RIGHT)
+   ============================================ */
+
+.bracket-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bracket-rounds {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    min-width: max(100%, 520px);
+}
+
+/* Each round column */
+.bracket-round {
+    flex: 0 0 210px;
+}
+
+.bracket-round-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+    opacity: 0.85;
+    font-weight: 600;
+}
+
+/* ============================================
+   MATCH CARDS
+   ============================================ */
+
+.bracket-match {
+    border: 1px solid var(--border-colour);
+    border-radius: 6px;
+    padding: 0.55rem 0.65rem;
+    margin-bottom: 1rem;
+    background: var(--bg-card);
+    font-size: 0.85rem;
+    transition: background 0.15s;
+}
+
+/* For future-round placeholders */
+.bracket-match.empty {
+    opacity: 0.55;
+}
+
+/* Player rows */
+.bracket-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+}
+
+.bracket-player:last-child {
+    margin-bottom: 0;
+}
+
+.bracket-player-name {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ============================================
+   WINNER / LOSER STYLING
+   ============================================ */
+
+.bracket-player.winner .bracket-player-name {
+    font-weight: 600;
+    color: var(--link-colour);
+}
+
+.bracket-player.loser {
+    opacity: 0.55;
+}
+
+.bracket-match.resolved {
+    border-color: var(--link-colour);
+}
+
+/* ============================================
+   WIN BUTTONS
+   ============================================ */
+
+.bracket-player button {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.78rem;
+    border: 1px solid var(--border-colour);
+    border-radius: 4px;
+    background: var(--bg-colour);
+    cursor: pointer;
+}
+
+.bracket-player button:hover:not(:disabled) {
+    background: var(--bg-card);
+}
+
+.bracket-player button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* ============================================
+   FINAL WINNER LABEL
+   ============================================ */
+
+.bracket-final-winner {
+    margin-top: 0.6rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--link-colour);
+}
+
+
+
+
+            </style>

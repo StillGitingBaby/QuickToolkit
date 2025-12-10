@@ -4,8 +4,8 @@
     width: 100%;
     min-height: 220px;
     border-radius: 0.5rem;
-    border: 1px solid #ddd;
-    background: #f5f5f5;
+    border: 1px solid var(--border-colour);
+    background: var(--bg-card);
     background-size: cover;
     background-position: center;
 }
@@ -20,7 +20,7 @@
         width: 40px;
         height: 32px;
         padding: 0;
-        border: 1px solid #ccc;
+        border: 1px solid var(--border-colour);
         border-radius: 0.25rem;
         background: transparent;
     }
@@ -48,6 +48,7 @@
     border: 2px solid var(--border-colour);
     position: relative;
     cursor: pointer;
+    background: var(--bg-card);
 }
 
 .gradient-dial-indicator {

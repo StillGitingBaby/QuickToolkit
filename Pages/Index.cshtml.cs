@@ -70,6 +70,12 @@ namespace QuickToolbox.Pages
                 Name = "Flag Generator",
                 Url = "/Tools/FlagGenerator",
                 Tagline = "Generate unique flags."
+            },
+            new ToolInfo
+            {
+                Name = "Football Kit Generator",
+                Url = "/Tools/FootballKitGenerator",
+                Tagline = "Generate unique football kits."
             }
 
         }

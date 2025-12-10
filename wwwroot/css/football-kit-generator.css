@@ -1,0 +1,119 @@
+﻿/* Football Kit Generator – tool-specific styles */
+
+.kit-layout {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.kit-controls {
+    flex: 1 1 320px;
+    max-width: 420px;
+}
+
+.kit-preview {
+    flex: 1 1 320px;
+    min-width: 320px;
+}
+
+/* Control panels */
+
+.kit-control-group {
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    border-radius: 0.75rem;
+    padding: 0.75rem 0.9rem 0.9rem;
+    margin-bottom: 1rem;
+    background: rgba(15, 23, 42, 0.02);
+}
+
+    .kit-control-group h4 {
+        font-size: 0.95rem;
+        margin: 0 0 0.5rem;
+        font-weight: 600;
+    }
+
+    .kit-control-group .form-row {
+        margin-bottom: 0.55rem;
+    }
+
+    .kit-control-group .two-col {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+.colour-input {
+    padding: 0;
+    height: 2.2rem;
+}
+
+/* Buttons under controls */
+
+.kit-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Preview card */
+
+.kit-preview-inner {
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: radial-gradient(circle at top, #111827 0, #020617 55%);
+    padding: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 360px;
+    /* NEW: card controls width, centred */
+    width: 100%;
+    max-width: 520px; /* tweak this for bigger/smaller kit on desktop */
+    margin: 0 auto;
+}
+
+/* Wrapper around the canvas – just fill the card */
+.kit-preview-wrapper {
+    width: 100%;
+}
+
+/* Canvas: responsive but keeps intrinsic 500x500 resolution */
+#kit-canvas {
+    display: block;
+    width: 100%; /* fill wrapper/card */
+    max-width: 100%;
+    height: auto; /* preserve aspect ratio */
+    border-radius: 0.75rem;
+    background: #020617;
+}
+
+/* Download row + helper text */
+
+.kit-download-row {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.kit-help-text {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 768px) {
+    .kit-layout {
+        flex-direction: column;
+    }
+
+    .kit-controls,
+    .kit-preview {
+        max-width: 100%;
+        min-width: 0;
+    }
+}

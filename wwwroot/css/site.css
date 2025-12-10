@@ -15,7 +15,9 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Utility */
@@ -24,159 +26,104 @@ body {
 }
 
 /* -------------------------------------------------
-   Cookie banner (theme-aware)
-   ------------------------------------------------- */
-
-.cookie-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 15px 20px;
-    background: var(--bg-card);
-    color: var(--text-colour);
-    border-top: 1px solid var(--border-colour);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 9999;
-    font-size: 14px;
-}
-
-.cookie-text {
-    max-width: 70%;
-    line-height: 1.4;
-}
-
-.cookie-learnmore {
-    margin-left: 8px;
-}
-
-.cookie-buttons {
-    display: flex;
-    gap: 12px;
-}
-
-    .cookie-buttons button {
-        padding: 6px 14px;
-        border: 1px solid var(--border-colour);
-        background: var(--bg-colour);
-        color: var(--text-colour);
-        cursor: pointer;
-    }
-
-        .cookie-buttons button:hover {
-            background: var(--bg-card);
-        }
-
-/* Mobile layout for cookie banner */
-@media (max-width: 600px) {
-    .cookie-banner {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: left;
-        padding: 20px;
-        gap: 14px;
-    }
-
-    .cookie-text {
-        max-width: 100%;
-    }
-
-    .cookie-buttons {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-        .cookie-buttons button {
-            flex: 1;
-            padding: 10px;
-        }
-}
-
-/* -------------------------------------------------
-   Dark mode theme variables
+   Theme variables (light / dark)
    ------------------------------------------------- */
 
 /* Base theme (light) */
 :root {
-    --bg-colour: #f5f5f5;
+    --bg-colour: #f4f5fb;
     --bg-card: #ffffff;
-    --text-colour: #222222;
-    --border-colour: #dddddd;
-    --link-colour: #005bbb;
-    --link-hover-colour: #003f80;
+    --text-colour: #111827;
+    --text-muted: #6b7280;
+    --border-colour: #d1d5db;
+    --link-colour: #0f766e;
+    --link-hover-colour: #0d9488;
     --nav-bg: #ffffff;
-    --nav-text: #222222;
+    --nav-text: #111827;
     --header-bg: var(--nav-bg);
     --header-text: var(--nav-text);
+    --accent-colour: #0ea5e9;
+    --accent-soft: rgba(14, 165, 233, 0.18);
 }
 
     /* Dark theme overrides */
     :root[data-theme="dark"] {
-        --bg-colour: #121212;
-        --bg-card: #1e1e1e;
-        --text-colour: #f1f1f1;
-        --border-colour: #333333;
-        --link-colour: #4da3ff;
-        --link-hover-colour: #82c4ff;
-        --nav-bg: #1a1a1a;
-        --nav-text: #f1f1f1;
+        --bg-colour: #050814;
+        --bg-card: #0b1022;
+        --text-colour: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-colour: #1f2937;
+        --link-colour: #7dd3fc;
+        --link-hover-colour: #bae6fd;
+        --nav-bg: #020617;
+        --nav-text: #e5e7eb;
         --header-bg: var(--nav-bg);
         --header-text: var(--nav-text);
+        --accent-colour: #38bdf8;
+        --accent-soft: rgba(56, 189, 248, 0.22);
     }
 
 /* If no explicit data-theme is set, follow system preference */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]):not([data-theme="dark"]) {
-        --bg-colour: #121212;
-        --bg-card: #1e1e1e;
-        --text-colour: #f1f1f1;
-        --border-colour: #333333;
-        --link-colour: #4da3ff;
-        --link-hover-colour: #82c4ff;
-        --nav-bg: #1a1a1a;
-        --nav-text: #f1f1f1;
+        --bg-colour: #050814;
+        --bg-card: #0b1022;
+        --text-colour: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-colour: #1f2937;
+        --link-colour: #7dd3fc;
+        --link-hover-colour: #bae6fd;
+        --nav-bg: #020617;
+        --nav-text: #e5e7eb;
         --header-bg: var(--nav-bg);
         --header-text: var(--nav-text);
+        --accent-colour: #38bdf8;
+        --accent-soft: rgba(56, 189, 248, 0.22);
     }
 }
 
-/* Apply variables */
+/* -------------------------------------------------
+   Apply variables globally
+   ------------------------------------------------- */
 
 body {
     background: var(--bg-colour);
     color: var(--text-colour);
 }
 
-header,
-.navbar {
-    background: var(--nav-bg);
-    color: var(--nav-text);
+/* Fancy gradient only in dark mode */
+html[data-theme="dark"] body {
+    background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
 }
 
 a {
     color: var(--link-colour);
+    text-decoration: none;
 }
 
     a:hover {
         color: var(--link-hover-colour);
+        text-decoration: underline;
     }
 
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
 /* -------------------------------------------------
-   Navbar + theme toggle
+   Navbar + header
    ------------------------------------------------- */
 
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     background: var(--nav-bg);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
 }
 
-/* 🔹 Make navbar text follow the theme */
 .app-navbar .navbar-brand,
 .app-navbar .nav-link {
     color: var(--nav-text);
@@ -187,465 +134,476 @@ a {
         color: var(--link-hover-colour);
     }
 
-/* keep existing theme-toggle styles */
+.navbar-brand img {
+    max-height: 28px;
+    filter: none !important;
+}
+
+/* Theme toggle button */
 .theme-toggle {
     border: 1px solid var(--border-colour);
+    border-radius: 999px;
     background: transparent;
     color: var(--nav-text);
-    border-radius: 999px;
-    padding: 4px 10px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     cursor: pointer;
-    font-size: 0.9rem;
 }
 
     .theme-toggle:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(148, 163, 184, 0.12);
     }
 
 /* -------------------------------------------------
-   Generic tool table system
+   Page layout / tool wrappers
    ------------------------------------------------- */
 
-.tool-table-wrapper {
-    max-height: 400px;
-    overflow-y: auto;
-    overflow-x: auto;
-    border: 1px solid var(--border-colour);
-    border-radius: 4px;
-    background: var(--bg-card);
-    margin-top: 1rem;
-    position: relative;
-    -webkit-overflow-scrolling: touch;
-}
-
-.tool-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    background: var(--bg-card);
-    color: var(--text-colour);
-    min-width: 100%;
-}
-
-    .tool-table th,
-    .tool-table td {
-        padding: 0.4rem 0.6rem;
-        border-bottom: 1px solid var(--border-colour);
-        text-align: right;
-        white-space: nowrap;
-    }
-
-        .tool-table th:first-child,
-        .tool-table td:first-child {
-            text-align: left;
-        }
-
-    /* Sticky header */
-    .tool-table thead {
-        position: sticky;
-        top: 0;
-        background: var(--bg-card);
-        z-index: 2;
-    }
-
-    /* Hover / zebra */
-    .tool-table tbody tr:hover {
-        background: rgba(255, 255, 255, 0.06);
-    }
-
-    .tool-table tbody tr:nth-child(even) {
-        background: rgba(255, 255, 255, 0.02);
-    }
-
-/* Mobile tweaks for tables */
-@media (max-width: 768px) {
-    .tool-table-wrapper {
-        max-height: none;
-        margin-top: 0.75rem;
-    }
-
-    .tool-table {
-        font-size: 0.8rem;
-    }
-
-        .tool-table th,
-        .tool-table td {
-            padding: 0.35rem 0.45rem;
-            white-space: normal;
-        }
-
-    .tool-table-wrapper::after {
-        content: "Scroll →";
-        position: absolute;
-        right: 8px;
-        bottom: 4px;
-        font-size: 0.75rem;
-        opacity: 0.6;
-        pointer-events: none;
-    }
-}
-
-/* -------------------------------------------------
-   Tool layout + cards
-   ------------------------------------------------- */
-
-/* Overall tool page container */
+main,
 .tool-page {
-    max-width: 1100px;
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 1.5rem 1rem 3rem;
+    padding: 8px 20px 48px; /* tighter top padding */
 }
 
-/* Header band (more specific so it beats auto styles) */
-section.tool-page .tool-header {
-    margin-bottom: 1.5rem;
-    background: var(--header-bg);
-    color: var(--header-text);
-    padding: 1rem 1rem;
-    border: 1px solid var(--border-colour);
+/* Some tools also use .qt-page – keep it aligned */
+.qt-page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 8px 20px 48px;
 }
 
-    section.tool-page .tool-header p {
+/* Two-column tool layout */
+.tool-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 24px;
+}
+
+/* Generic responsive stack layout */
+.responsive-stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .tool-layout,
+    .responsive-stack {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Tool header (title + intro text) */
+.tool-header {
+    margin-bottom: 16px;
+}
+
+    .tool-header h1,
+    .tool-header h2 {
+        margin: 0 0 4px;
+        font-size: 1.9rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
         color: var(--header-text);
+        display: block;
     }
 
-/* Main layout row */
-.tool-layout {
-    display: flex;
-    gap: 1.5rem;
-}
+    .tool-header p {
+        margin: 4px 0 0;
+        color: var(--text-muted);
+        max-width: 640px;
+        font-size: 0.9rem;
+        line-height: 1.45;
+    }
 
-/* Reusable stack behaviour */
-.responsive-stack {
-    flex-wrap: nowrap;
-}
-
-/* Sections / cards – MORE SPECIFIC so it overrides page-level .tool-section */
-section.tool-page .tool-section,
-section.tool-page .tool-card,
-section.tool-page .tool-input,
-section.tool-page .tool-output,
-section.tool-page .tool-stats {
+/* Content sections (inputs / outputs) */
+.tool-section {
     background: var(--bg-card);
-    color: var(--text-colour);
+    border-radius: 14px;
+    padding: 20px 20px 22px;
     border: 1px solid var(--border-colour);
-    border-radius: 4px;
-    padding: 1rem;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
 }
-
 
 .tool-section-title {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-colour);
 }
 
-/* Inputs / forms */
+/* Generic card – useful on index page for categories / tools */
+.qt-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    padding: 18px 18px 20px;
+    border: 1px solid var(--border-colour);
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+    .qt-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent-soft);
+        box-shadow: 0 22px 45px rgba(15, 23, 42, 0.18);
+    }
+
+/* -------------------------------------------------
+   INDEX PAGE – category grid & tool list
+   ------------------------------------------------- */
+
+/* Masonry-style columns for categories on desktop */
+.qt-category-grid {
+    column-count: 1;
+    column-gap: 16px;
+}
+
+@media (min-width: 900px) {
+    .qt-category-grid {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 1300px) {
+    .qt-category-grid {
+        column-count: 3;
+    }
+}
+
+/* Category card – must be block so columns work properly */
+.qt-category-card {
+    display: block;
+    padding: 14px 16px 16px;
+    border-radius: 12px;
+    margin: 0 0 16px;
+    break-inside: avoid;
+}
+
+/* List of tools inside a category */
+.qt-tool-list {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+}
+
+/* Slightly tighter spacing between tools */
+.qt-tool-list-item {
+    margin-bottom: 4px;
+}
+
+/* The whole link is a block so name + tagline stack nicely */
+.qt-tool-link {
+    display: inline-block;
+}
+
+/* Tool name (first line) */
+.qt-tool-name {
+    display: block;
+    font-weight: 500;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+/* Tagline (second line, smaller and muted) */
+.qt-tool-tagline {
+    display: block;
+    margin-top: 1px;
+    font-size: 0.8rem;
+    line-height: 1.25;
+    color: var(--text-muted);
+}
+
+/* -------------------------------------------------
+   Forms & inputs
+   ------------------------------------------------- */
+
 .form-row {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
 }
 
 .form-label {
+    display: block;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+    color: var(--text-muted);
+}
+
+/* Make bootstrap-ish controls match theme */
+
+.form-control,
+.form-select,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="color"],
+textarea {
+    background: var(--bg-card);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-colour);
+    color: var(--text-colour);
+    font-size: 0.95rem;
+}
+
+    .form-control::placeholder,
+    input::placeholder,
+    textarea::placeholder {
+        color: rgba(148, 163, 184, 0.9);
+    }
+
+    .form-control:focus,
+    .form-select:focus,
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    input[type="color"]:focus,
+    textarea:focus {
+        background: var(--bg-card);
+        color: var(--text-colour);
+        border-color: var(--accent-colour);
+    }
+
+    /* Focus rings */
+    .btn:focus,
+    .btn:active:focus,
+    .btn-link.nav-link:focus,
+    .form-control:focus,
+    .form-check-input:focus {
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 0 0 4px var(--accent-soft);
+        outline: none;
+    }
+
+/* -------------------------------------------------
+   Buttons
+   ------------------------------------------------- */
+
+button,
+.btn,
+.tool-section,
+.qt-card,
+input,
+select,
+textarea {
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+}
+
+.btn-primary {
+    background: var(--accent-colour);
+    border: none;
+    border-radius: 999px;
+    padding-inline: 18px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background: var(--link-hover-colour);
+    }
+
+.btn-outline-secondary,
+.btn-secondary {
+    border-radius: 999px;
+    border-color: var(--border-colour);
+    background: transparent;
+    color: var(--text-colour);
+}
+
+    .btn-outline-secondary:hover,
+    .btn-secondary:hover {
+        background: rgba(148, 163, 184, 0.08);
+        border-color: var(--accent-soft);
+    }
+
+/* -------------------------------------------------
+   Tables & data display
+   ------------------------------------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 0.9rem;
 }
 
-.form-input,
-.form-input-multiline {
-    background: var(--bg-card);
-    color: var(--text-colour);
-    border: 1px solid var(--border-colour);
-    padding: 4px 6px;
-}
-
-    .form-input:focus,
-    .form-input-multiline:focus {
-        outline: none;
-        border-color: var(--link-colour);
+    table thead {
+        background: rgba(148, 163, 184, 0.12);
     }
 
-.form-action {
-    margin-top: 0.5rem;
-}
-
-/* Results text */
-.tool-result-list {
-    padding-left: 1.1rem;
-    margin-bottom: 0.75rem;
-}
-
-.tool-note {
-    font-size: 0.85rem;
-    opacity: 0.85;
-}
-
-/* Chart area */
-.tool-chart-wrapper {
-    position: relative;
-    height: 260px;
-}
-
-/* MOBILE RESPONSIVE TWEAKS for tool layout */
-@media (max-width: 768px) {
-    .tool-layout,
-    .responsive-stack {
-        flex-direction: column;
+    table th,
+    table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.3);
     }
 
-    .tool-page {
-        padding: 1rem 0.75rem 2rem;
+    table th {
+        font-weight: 600;
+        text-align: left;
     }
 
-    .tool-chart-wrapper {
-        height: 220px;
+/* -------------------------------------------------
+   Footer
+   ------------------------------------------------- */
+
+footer {
+    border-top: 1px solid rgba(148, 163, 184, 0.3);
+    background: var(--nav-bg);
+    color: var(--text-muted);
+    padding: 12px 20px;
+    font-size: 0.82rem;
+}
+
+    footer a {
+        color: var(--link-colour);
     }
+
+/* -------------------------------------------------
+   Word-counter / text tools helpers
+   ------------------------------------------------- */
+
+textarea#wc-input,
+textarea#tf-input,
+textarea#tf-output {
+    min-height: 220px;
+}
+
+.wc-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
 }
 
 /* -------------------------------------------------
-   Text formatter layout tweaks
+   Cookie banner (theme-aware, sticky card)
    ------------------------------------------------- */
 
-.tool-input,
-.tool-output {
-    flex: 1 1 0;
-}
-
-/* Matching textareas */
-.form-input-multiline {
-    min-height: 220px;
-    resize: vertical;
-    font-family: inherit;
-    line-height: 1.4;
-}
-
-/* Options area */
-.tool-controls {
-    margin-top: 1.5rem;
-}
-
-.tf-options {
+.cookie-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: min(100% - 24px, 1040px); /* align with page width & keep margin at edges */
+    padding: 14px 18px;
+    background: var(--bg-card);
+    color: var(--text-colour);
+    border-radius: 12px 12px 0 0;
+    border: 1px solid var(--border-colour);
+    border-bottom: none;
+    box-shadow: 0 -14px 36px rgba(15, 23, 42, 0.35);
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 0.75rem;
-}
-
-/* Checkbox rows */
-.checkbox-row {
-    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 14px;
+    z-index: 9999;
     font-size: 0.9rem;
 }
 
-    .checkbox-row input[type="checkbox"] {
-        margin-top: 2px;
-    }
-
-/* Buttons row */
-.tf-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+.cookie-text {
+    max-width: 70%;
+    line-height: 1.5;
 }
 
-    .tf-buttons button {
-        padding: 0.4rem 0.9rem;
+.cookie-learnmore {
+    margin-left: 6px;
+}
+
+.cookie-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+    .cookie-buttons button {
+        padding: 7px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        border: 1px solid var(--border-colour);
+        background: var(--bg-colour);
+        color: var(--text-colour);
+        font-weight: 500;
     }
 
-/* Mobile tweaks for TF */
-@media (max-width: 768px) {
-    .form-input-multiline {
-        min-height: 180px;
+        .cookie-buttons button:first-child {
+            background: var(--accent-colour);
+            border-color: var(--accent-colour);
+            color: #ffffff;
+        }
+
+        .cookie-buttons button:hover {
+            background: var(--bg-card);
+        }
+
+        .cookie-buttons button:first-child:hover {
+            background: var(--link-hover-colour);
+        }
+
+/* Mobile layout for cookie banner */
+@media (max-width: 600px) {
+    .cookie-banner {
+        width: 100%;
+        left: 0;
+        transform: none;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        padding: 16px 18px 18px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
     }
 
-    .tf-buttons {
-        justify-content: flex-start;
+    .cookie-text {
+        max-width: 100%;
     }
 
-        .tf-buttons button {
-            flex: 1 1 140px;
+    .cookie-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+        .cookie-buttons button {
+            flex: 1;
+            text-align: center;
         }
 }
 
-/* -------------------------------------------------
-   Tournament bracket layout
-   ------------------------------------------------- */
 
-.bracket-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-}
 
-.bracket-rounds {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    min-width: max(100%, 480px);
-}
 
-/* Each round is a column */
-.bracket-round {
-    flex: 0 0 200px;
-}
 
-.bracket-round-title {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    opacity: 0.85;
-}
 
-/* Each match card */
-.bracket-match {
-    border: 1px solid var(--border-colour);
-    border-radius: 4px;
-    padding: 0.4rem;
-    margin-bottom: 0.75rem;
-    background: var(--bg-card);
-    font-size: 0.85rem;
-}
 
-/* Player rows */
-.bracket-player {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 0.25rem;
-}
 
-    .bracket-player:last-child {
-        margin-bottom: 0;
-    }
+/* ======================
+   TODO move to own tournament.css file
+   ====================== */
 
-.bracket-player-name {
-    flex: 1 1 auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Winner state */
-.bracket-player.winner .bracket-player-name {
-    font-weight: bold;
-}
-
-/* Buttons */
-.bracket-player button {
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-}
-
-/* Disabled match (future round with no players yet) */
-.bracket-match.empty .bracket-player-name {
-    opacity: 0.5;
-}
-
-/* Final winner badge */
-.bracket-final-winner {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-/* Mobile tweaks for bracket */
 @media (max-width: 768px) {
     .bracket-round {
         flex: 0 0 180px;
     }
 
     .bracket-match {
+        padding: 0.4rem;
         font-size: 0.8rem;
-        padding: 0.35rem;
     }
 
     .bracket-player button {
-        padding: 0.15rem 0.4rem;
-        font-size: 0.75rem;
+        padding: 0.18rem 0.4rem;
+        font-size: 0.72rem;
     }
 }
-
-
-/* -------------------------------------------------
-   Landing page (home)
-   ------------------------------------------------- */
-
-/* Hero card at the top of the home page */
-.home-page .tool-header {
-    margin-bottom: 2rem;
-    padding: 1.5rem 1.75rem 1.75rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--border-colour);
-    background: var(--header-bg);
-    color: var(--header-text);
-}
-
-    .home-page .tool-header h1 {
-        margin-bottom: 0.75rem;
+/* Mobile full-width buttons */
+@media (max-width: 768px) {
+    .tt-player-actions .btn {
+        width: 100%;
     }
-
-    .home-page .tool-header p {
-        max-width: 48rem;
-        margin-bottom: 0.4rem;
-    }
-
-/* Breathing room between hero and categories */
-.home-page #tool-categories.tool-section {
-    margin-top: 1.5rem;
 }
-
-/* Category grid/cards */
-
-.qt-category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.qt-category-card {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Tool list */
-
-.qt-tool-list {
-    list-style: none;
-    margin: 1rem 0 0;
-    padding-left: 0;
-}
-
-.qt-tool-list-item + .qt-tool-list-item {
-    margin-top: 0.5rem;
-}
-
-.qt-tool-link {
-    display: block;
-    text-decoration: none;
-}
-
-/* Match normal body text colours in both themes */
-.qt-tool-name {
-    font-weight: 600;
-    display: block;
-    color: var(--text-colour);
-}
-
-.qt-tool-tagline {
-    font-size: 0.875rem;
-    display: block;
-    color: var(--text-colour);
-    opacity: 0.85;
-}
-
-/* Simple hover – let theme handle colours */
-.qt-tool-link:hover,
-.qt-tool-link:focus-visible {
-    text-decoration: underline;
-}
-

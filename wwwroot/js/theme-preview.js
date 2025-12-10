@@ -1,6 +1,6 @@
 ﻿(function () {
     // ================================
-    // SPLITTER
+    // SPLITTER (flex-based)
     // ================================
     function initSplitter() {
         var layout = document.querySelector('.tp-split-layout');
@@ -12,6 +12,9 @@
         var dragging = false;
 
         splitter.addEventListener('mousedown', function () {
+            if (window.innerWidth < 900) {
+                return; // stacked layout – ignore drag
+            }
             dragging = true;
             document.body.style.userSelect = 'none';
         });
@@ -25,8 +28,7 @@
             if (newWidth < 260) newWidth = 260;
             if (newWidth > 600) newWidth = 600;
 
-            sidebar.style.width = newWidth + 'px';
-            layout.style.gridTemplateColumns = newWidth + 'px 6px minmax(0, 1fr)';
+            sidebar.style.flexBasis = newWidth + 'px';
         });
 
         document.addEventListener('mouseup', function () {
@@ -36,10 +38,7 @@
         });
     }
 
-    // ================================
-    // THEME PREVIEW
-    // ================================
-
+    // Helper
     function getEl(id) {
         return document.getElementById(id);
     }
@@ -148,20 +147,31 @@
 
     function updateDarkMode(preview) {
         var checkbox = getEl('tp-dark-mode');
+        var toggleBtn = getEl('tp-dark-toggle');
         if (!checkbox || !preview) return;
 
-        function sync() {
+        function apply() {
             if (checkbox.checked) {
                 preview.classList.add('tp-theme-dark');
                 preview.classList.remove('tp-theme-light');
+                if (toggleBtn) toggleBtn.classList.add('tp-toggle-on');
             } else {
                 preview.classList.remove('tp-theme-dark');
                 preview.classList.add('tp-theme-light');
+                if (toggleBtn) toggleBtn.classList.remove('tp-toggle-on');
             }
         }
 
-        checkbox.addEventListener('change', sync);
-        sync();
+        checkbox.addEventListener('change', apply);
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function () {
+                checkbox.checked = !checkbox.checked;
+                apply();
+            });
+        }
+
+        apply();
     }
 
     function updateFonts(preview) {
@@ -202,33 +212,6 @@
         syncSize();
     }
 
-    function initModes() {
-        var wrapper = getEl('tp-preview-wrapper');
-        var buttons = document.querySelectorAll('.tp-mode-btn');
-        if (!wrapper || !buttons.length) return;
-
-        function setMode(btn) {
-            var mode = btn.getAttribute('data-mode');
-            if (!mode) return;
-
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            btn.classList.add('active');
-
-            wrapper.classList.remove('tp-mode-desktop', 'tp-mode-tablet', 'tp-mode-mobile');
-            wrapper.classList.add('tp-mode-' + mode);
-        }
-
-        for (var i = 0; i < buttons.length; i++) {
-            (function (b) {
-                b.addEventListener('click', function () {
-                    setMode(b);
-                });
-            })(buttons[i]);
-        }
-    }
-
     function initReset() {
         var resetBtn = getEl('tp-reset');
         if (!resetBtn) return;
@@ -241,8 +224,7 @@
     // Sidebar list → scroll to section
     function initComponentNav() {
         var items = document.querySelectorAll('.tp-sidebar-list li');
-        var preview = getEl('tp-preview');
-        if (!items.length || !preview) return;
+        if (!items.length) return;
 
         function setActive(li) {
             for (var i = 0; i < items.length; i++) {
@@ -269,10 +251,186 @@
         }
     }
 
+    // ================================
+    // TOKEN SNAPSHOT + EXPORT
+    // ================================
+
+    function readToken(preview, name) {
+        if (!preview) return '';
+        var styles = window.getComputedStyle(preview);
+        return (styles.getPropertyValue(name) || '').trim();
+    }
+
+    function normaliseColour(value) {
+        if (!value) return value;
+        return value.replace(/\s+/g, ' ');
+    }
+
+    function getTokens(preview) {
+        return {
+            colours: {
+                primary: normaliseColour(readToken(preview, '--tp-primary')),
+                secondary: normaliseColour(readToken(preview, '--tp-secondary')),
+                accent: normaliseColour(readToken(preview, '--tp-accent')),
+                success: normaliseColour(readToken(preview, '--tp-success')),
+                warning: normaliseColour(readToken(preview, '--tp-warning')),
+                danger: normaliseColour(readToken(preview, '--tp-danger')),
+                info: normaliseColour(readToken(preview, '--tp-info')),
+                bg: normaliseColour(readToken(preview, '--tp-bg')),
+                surface: normaliseColour(readToken(preview, '--tp-surface')),
+                surfaceMuted: normaliseColour(readToken(preview, '--tp-surface-muted')),
+                text: normaliseColour(readToken(preview, '--tp-text')),
+                textMuted: normaliseColour(readToken(preview, '--tp-text-muted'))
+            },
+            radius: readToken(preview, '--tp-radius'),
+            spacingBase: readToken(preview, '--tp-space'),
+            shadows: {
+                elevated: readToken(preview, '--tp-shadow-elevated'),
+                soft: readToken(preview, '--tp-shadow-soft')
+            },
+            typography: {
+                baseSize: readToken(preview, '--tp-font-size-base'),
+                fontFamily: readToken(preview, '--tp-font-family')
+            }
+        };
+    }
+
+    function buildCss(tokens) {
+        var c = tokens.colours;
+        var lines = [];
+        lines.push(':root {');
+        lines.push('  /* Brand colours */');
+        lines.push('  --color-primary: ' + c.primary + ';');
+        lines.push('  --color-secondary: ' + c.secondary + ';');
+        lines.push('  --color-accent: ' + c.accent + ';');
+        lines.push('');
+        lines.push('  /* Semantic colours */');
+        lines.push('  --color-success: ' + c.success + ';');
+        lines.push('  --color-warning: ' + c.warning + ';');
+        lines.push('  --color-danger: ' + c.danger + ';');
+        lines.push('  --color-info: ' + c.info + ';');
+        lines.push('');
+        lines.push('  /* Surfaces & text */');
+        lines.push('  --color-bg: ' + c.bg + ';');
+        lines.push('  --color-surface: ' + c.surface + ';');
+        lines.push('  --color-surface-muted: ' + c.surfaceMuted + ';');
+        lines.push('  --color-text: ' + c.text + ';');
+        lines.push('  --color-text-muted: ' + c.textMuted + ';');
+        lines.push('');
+        lines.push('  /* Radii and spacing */');
+        lines.push('  --radius-base: ' + tokens.radius + ';');
+        lines.push('  --space-base: ' + tokens.spacingBase + ';');
+        lines.push('');
+        lines.push('  /* Shadows */');
+        lines.push('  --shadow-elevated: ' + tokens.shadows.elevated + ';');
+        lines.push('  --shadow-soft: ' + tokens.shadows.soft + ';');
+        lines.push('');
+        lines.push('  /* Typography */');
+        lines.push('  --font-size-base: ' + tokens.typography.baseSize + ';');
+        lines.push('  --font-family-base: ' + tokens.typography.fontFamily + ';');
+        lines.push('}');
+        return lines.join('\n');
+    }
+
+    function buildTailwind(tokens) {
+        var c = tokens.colours;
+
+        var lines = [];
+        lines.push('// tailwind.config.js');
+        lines.push('module.exports = {');
+        lines.push('  theme: {');
+        lines.push('    extend: {');
+        lines.push('      colors: {');
+        lines.push("        brand: {");
+        lines.push("          primary: '" + c.primary + "',");
+        lines.push("          secondary: '" + c.secondary + "',");
+        lines.push("          accent: '" + c.accent + "',");
+        lines.push("          success: '" + c.success + "',");
+        lines.push("          warning: '" + c.warning + "',");
+        lines.push("          danger: '" + c.danger + "',");
+        lines.push("          info: '" + c.info + "',");
+        lines.push("          bg: '" + c.bg + "',");
+        lines.push("          surface: '" + c.surface + "',");
+        lines.push("          surfaceMuted: '" + c.surfaceMuted + "',");
+        lines.push("          text: '" + c.text + "',");
+        lines.push("          textMuted: '" + c.textMuted + "'");
+        lines.push('        }');
+        lines.push('      },');
+        lines.push('      borderRadius: {');
+        lines.push("        brand: '" + tokens.radius + "'");
+        lines.push('      },');
+        lines.push('      boxShadow: {');
+        lines.push("        brand: '" + tokens.shadows.elevated + "',");
+        lines.push("        'brand-soft': '" + tokens.shadows.soft + "'");
+        lines.push('      },');
+        lines.push('      fontFamily: {');
+        lines.push("        brand: '" + tokens.typography.fontFamily + "'");
+        lines.push('      },');
+        lines.push('      fontSize: {');
+        lines.push("        base: '" + tokens.typography.baseSize + "'");
+        lines.push('      }');
+        lines.push('    }');
+        lines.push('  }');
+        lines.push('};');
+        return lines.join('\n');
+    }
+
+    function buildJson(tokens) {
+        return JSON.stringify(tokens, null, 2);
+    }
+
+    function initExport(preview) {
+        var formatSelect = getEl('tp-export-format');
+        var refreshBtn = getEl('tp-export-refresh');
+        var copyBtn = getEl('tp-export-copy');
+        var output = getEl('tp-export-output');
+
+        if (!preview || !formatSelect || !refreshBtn || !copyBtn || !output) return;
+
+        function generate() {
+            var tokens = getTokens(preview);
+            var format = formatSelect.value || 'css';
+            var text;
+
+            if (format === 'tailwind') {
+                text = buildTailwind(tokens);
+            } else if (format === 'json') {
+                text = buildJson(tokens);
+            } else {
+                text = buildCss(tokens);
+            }
+
+            output.value = text;
+        }
+
+        function copy() {
+            if (!output.value) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(output.value).catch(function () { });
+            } else {
+                output.select();
+                try {
+                    document.execCommand('copy');
+                } catch (e) { }
+            }
+        }
+
+        refreshBtn.addEventListener('click', generate);
+        formatSelect.addEventListener('change', generate);
+        copyBtn.addEventListener('click', copy);
+
+        // Generate once on load
+        generate();
+    }
+
+    // ================================
+    // MAIN INIT
+    // ================================
     function initThemePreview() {
         var preview = getEl('tp-preview');
         if (!preview) return;
 
+        // Colour tokens
         applyColourVar(preview, 'tp-primary', '--tp-primary');
         applyColourVar(preview, 'tp-secondary', '--tp-secondary');
         applyColourVar(preview, 'tp-accent', '--tp-accent');
@@ -284,19 +442,17 @@
         applyColourVar(preview, 'tp-text', '--tp-text');
         applyColourVar(preview, 'tp-muted', '--tp-text-muted');
 
+        // Other controls
         updateRadius(preview);
         updateShadow(preview);
         updateSpacing(preview);
         updateDarkMode(preview);
         updateFonts(preview);
-        initModes();
         initReset();
         initComponentNav();
+        initExport(preview);
     }
 
-    // ================================
-    // DOM READY
-    // ================================
     function onReady() {
         initSplitter();
         initThemePreview();

@@ -19,331 +19,361 @@
     </script>
 }
 
-
 <section class="tool-page">
     <header class="tool-header">
-        <h2>UI Component Theme Preview</h2>
+        <h2>Theme Preview</h2>
         <p>
-            Choose colours and typography, then preview how buttons, forms, cards and alerts
-            will look with your theme.
+            Tweak your brand colours, spacing, shadows and typography and see how a realistic
+            app layout would look.
         </p>
     </header>
 
-    <div class="tool-layout tp-split-layout">
-        <!-- LEFT: THEME CONTROLS -->
-        <div class="tool-section tool-input">
+    <div class="tp-split-layout">
+        <!-- LEFT: CONTROL PANEL -->
+        <section class="tool-section tool-input">
             <h3 class="tool-section-title">Theme settings</h3>
 
+            <!-- Brand colours -->
             <div class="form-group">
-                <h4 class="tool-subtitle">Colours</h4>
-
-                <div class="form-row two-col">
-                    <div class="form-field">
+                <h4 class="tool-subtitle">Brand colours</h4>
+                <div class="two-col">
+                    <div class="form-row">
                         <label class="form-label" for="tp-primary">Primary</label>
                         <input id="tp-primary" type="color" class="form-input-colour" value="#6366f1" />
                     </div>
-                    <div class="form-field">
+                    <div class="form-row">
                         <label class="form-label" for="tp-secondary">Secondary</label>
                         <input id="tp-secondary" type="color" class="form-input-colour" value="#64748b" />
                     </div>
-                </div>
-
-                <div class="form-row two-col">
-                    <div class="form-field">
+                    <div class="form-row">
                         <label class="form-label" for="tp-accent">Accent</label>
                         <input id="tp-accent" type="color" class="form-input-colour" value="#ec4899" />
                     </div>
-                    <div class="form-field">
+                    <div class="form-row">
                         <label class="form-label" for="tp-success">Success</label>
                         <input id="tp-success" type="color" class="form-input-colour" value="#22c55e" />
                     </div>
-                </div>
-
-                <div class="form-row two-col">
-                    <div class="form-field">
+                    <div class="form-row">
                         <label class="form-label" for="tp-warning">Warning</label>
                         <input id="tp-warning" type="color" class="form-input-colour" value="#facc15" />
                     </div>
-                    <div class="form-field">
+                    <div class="form-row">
                         <label class="form-label" for="tp-danger">Danger</label>
                         <input id="tp-danger" type="color" class="form-input-colour" value="#ef4444" />
                     </div>
                 </div>
+                <p class="tool-note small">
+                    These drive buttons, pills and alert states. Success / warning / danger feed into the preview,
+                    not fixed colours.
+                </p>
+            </div>
 
-                <div class="form-row two-col">
-                    <div class="form-field">
-                        <label class="form-label" for="tp-bg">Background</label>
+            <!-- Background / text colours -->
+            <div class="form-group">
+                <h4 class="tool-subtitle">Surface / text colours</h4>
+                <div class="two-col">
+                    <div class="form-row">
+                        <label class="form-label" for="tp-bg">App background</label>
                         <input id="tp-bg" type="color" class="form-input-colour" value="#0f172a" />
                     </div>
-                    <div class="form-field">
-                        <label class="form-label" for="tp-surface">Surface</label>
+                    <div class="form-row">
+                        <label class="form-label" for="tp-surface">Cards / surfaces</label>
                         <input id="tp-surface" type="color" class="form-input-colour" value="#111827" />
                     </div>
-                </div>
-
-                <div class="form-row two-col">
-                    <div class="form-field">
-                        <label class="form-label" for="tp-text">Text</label>
+                    <div class="form-row">
+                        <label class="form-label" for="tp-text">Main text</label>
                         <input id="tp-text" type="color" class="form-input-colour" value="#e5e7eb" />
                     </div>
-                    <div class="form-field">
+                    <div class="form-row">
                         <label class="form-label" for="tp-muted">Muted text</label>
                         <input id="tp-muted" type="color" class="form-input-colour" value="#9ca3af" />
                     </div>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <label class="form-label">
-                        <input id="tp-dark-mode" type="checkbox" class="form-check-input" checked />
-                        Use dark mode base
-                    </label>
+            <!-- Mode & typography -->
+            <div class="form-group">
+                <h4 class="tool-subtitle">Mode & typography</h4>
+
+                <div class="tp-toggle-row">
+                    <div class="tp-toggle-label">
+                        <strong>Dark mode preview</strong><br />
+                        <span class="tool-note small">Toggle between dark and light theme styles.</span>
+                    </div>
+                    <button type="button" class="tp-toggle tp-toggle-on" id="tp-dark-toggle">
+                        <span class="tp-toggle-thumb"></span>
+                    </button>
+                    <input type="checkbox" id="tp-dark-mode" class="hidden" checked />
+                </div>
+
+                <div class="tp-form-row two-col" style="margin-top: 0.75rem;">
+                    <div>
+                        <label class="form-label" for="tp-font-family">Font family</label>
+                        <select id="tp-font-family" class="form-input">
+                            <option value="system">System UI</option>
+                            <option value="serif">Serif</option>
+                            <option value="mono">Monospace</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="tp-font-size-scale">Base font size</label>
+                        <select id="tp-font-size-scale" class="form-input">
+                            <option value="0">Compact (13px)</option>
+                            <option value="1" selected>Normal (14px)</option>
+                            <option value="2">Comfortable (16px)</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
+            <!-- Spacing & elevation -->
             <div class="form-group">
-                <h4 class="tool-subtitle">Typography</h4>
+                <h4 class="tool-subtitle">Spacing & elevation</h4>
 
-                <div class="form-row">
-                    <label class="form-label" for="tp-font-family">Font family</label>
-                    <select id="tp-font-family" class="form-input">
-                        <option value="system">System UI (default)</option>
-                        <option value="serif">Serif</option>
-                        <option value="mono">Monospace</option>
-                    </select>
+                <div class="slider-row">
+                    <div class="form-label">Border radius</div>
+                    <input id="tp-radius" type="range" min="6" max="24" value="12" />
+                    <div class="slider-value" id="tp-radius-value">12px</div>
                 </div>
 
-                <div class="form-row">
-                    <label class="form-label" for="tp-font-size-scale">Base size</label>
-                    <select id="tp-font-size-scale" class="form-input">
-                        <option value="0">Small</option>
-                        <option value="1" selected>Default</option>
-                        <option value="2">Large</option>
-                    </select>
+                <div class="slider-row">
+                    <div class="form-label">Shadow strength</div>
+                    <input id="tp-shadow" type="range" min="0" max="3" value="2" />
+                    <div class="slider-value" id="tp-shadow-value">Medium</div>
+                </div>
+
+                <div class="slider-row">
+                    <div class="form-label">Spacing scale</div>
+                    <input id="tp-spacing" type="range" min="0" max="4" value="2" />
+                    <div class="slider-value" id="tp-spacing-value">Normal</div>
                 </div>
             </div>
 
+            <!-- Export tokens -->
             <div class="form-group">
-                <h4 class="tool-subtitle">Shape & spacing</h4>
+                <h4 class="tool-subtitle">Export tokens</h4>
+                <p class="tool-note small" style="margin-bottom: 0.4rem;">
+                    Generate design tokens from the current preview and paste them into your project.
+                </p>
 
-                <div class="form-row slider-row">
-                    <label class="form-label" for="tp-radius">Border radius</label>
-                    <input id="tp-radius" type="range" min="0" max="24" step="2" value="12" />
-                    <span class="slider-value" id="tp-radius-value">12px</span>
+                <div class="tp-export-controls">
+                    <div class="tp-export-left">
+                        <label class="form-label" for="tp-export-format">Format</label>
+                        <select id="tp-export-format" class="form-input tp-export-select">
+                            <option value="css">CSS custom properties</option>
+                            <option value="tailwind">Tailwind config snippet</option>
+                            <option value="json">JSON</option>
+                        </select>
+                    </div>
+                    <div class="tp-export-buttons">
+                        <button type="button" id="tp-export-refresh" class="btn btn-secondary btn-xs">
+                            Refresh
+                        </button>
+                        <button type="button" id="tp-export-copy" class="btn btn-secondary btn-xs">
+                            Copy
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-row slider-row">
-                    <label class="form-label" for="tp-shadow">Shadow</label>
-                    <input id="tp-shadow" type="range" min="0" max="3" step="1" value="2" />
-                    <span class="slider-value" id="tp-shadow-value">Medium</span>
-                </div>
-
-                <div class="form-row slider-row">
-                    <label class="form-label" for="tp-spacing">Spacing scale</label>
-                    <input id="tp-spacing" type="range" min="0" max="4" step="1" value="2" />
-                    <span class="slider-value" id="tp-spacing-value">Normal</span>
-                </div>
+                <textarea id="tp-export-output"
+                          class="tp-export-output"
+                          rows="8"
+                          readonly></textarea>
             </div>
 
-            <div class="form-group">
-                <button id="tp-reset" type="button" class="btn btn-secondary">
+            <!-- Footer -->
+            <div class="tp-form-footer">
+                <button type="button" id="tp-reset" class="btn btn-secondary">
                     Reset to defaults
                 </button>
             </div>
-        </div>
+        </section>
 
-        <!-- DRAGGABLE SPLITTER -->
-        <div class="tp-splitter" id="tp-splitter"></div>
+        <!-- SPLITTER -->
+        <div id="tp-splitter" class="tp-splitter" aria-hidden="true"></div>
 
         <!-- RIGHT: PREVIEW -->
-        <div class="tool-section tool-output">
+        <section class="tool-section tool-output">
             <div class="tp-preview-header-row">
-                <h3 class="tool-section-title">Preview</h3>
-                <div class="tp-preview-modes">
-                    <button type="button" class="tp-mode-btn active" data-mode="desktop">Desktop</button>
-                    <button type="button" class="tp-mode-btn" data-mode="tablet">Tablet</button>
-                    <button type="button" class="tp-mode-btn" data-mode="mobile">Mobile</button>
+                <div>
+                    <div class="tool-section-title" style="margin-bottom: 0.2rem;">Live preview</div>
+                    <p class="tool-note small" style="margin: 0;">
+                        A sample dashboard UI that uses your tokens for buttons, pills, alerts and layout.
+                    </p>
                 </div>
             </div>
 
-            <div id="tp-preview-wrapper" class="tp-preview-wrapper tp-mode-desktop">
+            <div id="tp-preview-wrapper" class="tp-preview-wrapper">
                 <div id="tp-preview" class="tp-theme tp-theme-dark">
                     <header class="tp-app-header">
                         <div class="tp-app-brand">
-                            <div class="tp-app-logo">UI</div>
-                            <div class="tp-app-title">
-                                <div class="tp-app-name">Example App</div>
-                                <div class="tp-app-subtitle">Preview of your selected theme</div>
+                            <div class="tp-app-logo">QT</div>
+                            <div>
+                                <div class="tp-app-name">QuickToolkit</div>
+                                <div class="tp-app-subtitle">Design system preview</div>
                             </div>
                         </div>
                         <nav class="tp-app-nav">
                             <button class="tp-btn tp-btn-ghost tp-btn-sm">Dashboard</button>
-                            <button class="tp-btn tp-btn-ghost tp-btn-sm">Projects</button>
-                            <button class="tp-btn tp-btn-ghost tp-btn-sm">Settings</button>
-                            <button class="tp-btn tp-btn-primary tp-btn-sm">Sign in</button>
+                            <button class="tp-btn tp-btn-ghost tp-btn-sm">Components</button>
+                            <button class="tp-btn tp-btn-primary tp-btn-sm">New project</button>
                         </nav>
                     </header>
 
                     <main class="tp-app-main">
-                        <section class="tp-layout">
+                        <div class="tp-layout">
+                            <!-- Sidebar -->
                             <aside class="tp-sidebar">
                                 <div class="tp-sidebar-section">
-                                    <div class="tp-sidebar-title">Components</div>
+                                    <div class="tp-sidebar-title">Preview sections</div>
                                     <ul class="tp-sidebar-list">
                                         <li class="active" data-target="tp-section-buttons">Buttons</li>
-                                        <li data-target="tp-section-form">Inputs</li>
-                                        <li data-target="tp-section-cards">Cards</li>
+                                        <li data-target="tp-section-pills">Status pills</li>
                                         <li data-target="tp-section-alerts">Alerts</li>
+                                        <li data-target="tp-section-cards">Cards & layout</li>
                                     </ul>
                                 </div>
+
                                 <div class="tp-sidebar-section">
-                                    <div class="tp-sidebar-title">Status</div>
+                                    <div class="tp-sidebar-title">Quick stats</div>
                                     <div class="tp-pill-row">
-                                        <span class="tp-pill tp-pill-success">Success</span>
-                                        <span class="tp-pill tp-pill-warning">Warning</span>
-                                        <span class="tp-pill tp-pill-danger">Danger</span>
+                                        <span class="tp-pill tp-pill-success">Live</span>
+                                        <span class="tp-pill tp-pill-warning">Pending</span>
+                                        <span class="tp-pill tp-pill-danger">Errors</span>
+                                        <span class="tp-pill tp-pill-soft">Draft</span>
                                     </div>
                                 </div>
                             </aside>
 
+                            <!-- Main content -->
                             <section class="tp-content">
-                                <!-- BUTTONS -->
-                                <section class="tp-block" id="tp-section-buttons">
-                                    <header class="tp-block-header">
-                                        <h4 class="tp-block-title">Buttons</h4>
-                                        <p class="tp-block-subtitle">Primary actions, secondary actions and subtle variants.</p>
-                                    </header>
-                                    <div class="tp-block-body tp-btn-grid">
-                                        <button class="tp-btn tp-btn-primary">Primary button</button>
-                                        <button class="tp-btn tp-btn-secondary">Secondary button</button>
-                                        <button class="tp-btn tp-btn-ghost">Ghost button</button>
-                                        <button class="tp-btn tp-btn-outline">Outline button</button>
-                                        <button class="tp-btn tp-btn-primary" disabled>Disabled</button>
-                                        <button class="tp-btn tp-btn-primary tp-btn-loading">
-                                            <span class="tp-spinner"></span>
-                                            Loading…
-                                        </button>
+                                <!-- Buttons block -->
+                                <article id="tp-section-buttons" class="tp-block">
+                                    <div class="tp-block-header">
+                                        <h3 class="tp-block-title">Buttons</h3>
+                                        <p class="tp-block-subtitle">
+                                            Primary, secondary and ghost buttons wired to your tokens.
+                                        </p>
                                     </div>
-                                </section>
-
-                                <!-- FORM -->
-                                <section class="tp-block" id="tp-section-form">
-                                    <header class="tp-block-header">
-                                        <h4 class="tp-block-title">Form elements</h4>
-                                        <p class="tp-block-subtitle">Inputs, select, textarea and toggles.</p>
-                                    </header>
                                     <div class="tp-block-body">
-                                        <form class="tp-form">
-                                            <div class="tp-form-row">
-                                                <label class="tp-label" for="tp-demo-name">Name</label>
-                                                <input id="tp-demo-name" class="tp-input" type="text" placeholder="Enter your name" />
-                                            </div>
-                                            <div class="tp-form-row">
-                                                <label class="tp-label" for="tp-demo-email">Email</label>
-                                                <input id="tp-demo-email" class="tp-input" type="email" placeholder="you@example.com" />
-                                            </div>
-                                            <div class="tp-form-row two-col">
-                                                <div>
-                                                    <label class="tp-label" for="tp-demo-role">Role</label>
-                                                    <select id="tp-demo-role" class="tp-input">
-                                                        <option>Designer</option>
-                                                        <option>Developer</option>
-                                                        <option>Product manager</option>
-                                                        <option>Other</option>
-                                                    </select>
-                                                </div>
-                                                <div>
-                                                    <label class="tp-label" for="tp-demo-notify">Notifications</label>
-                                                    <div class="tp-toggle-row">
-                                                        <span class="tp-toggle-label">Email alerts</span>
-                                                        <button type="button" class="tp-toggle tp-toggle-on">
-                                                            <span class="tp-toggle-thumb"></span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tp-form-row">
-                                                <label class="tp-label" for="tp-demo-message">Message</label>
-                                                <textarea id="tp-demo-message" class="tp-input tp-input-multiline" rows="3"
-                                                          placeholder="Write a short message…"></textarea>
-                                            </div>
-                                            <div class="tp-form-footer">
-                                                <button type="button" class="tp-btn tp-btn-primary">Submit form</button>
-                                                <button type="button" class="tp-btn tp-btn-ghost">Cancel</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </section>
-
-                                <!-- CARDS & ALERTS GRID -->
-                                <section class="tp-grid">
-                                    <section class="tp-block" id="tp-section-cards">
-                                        <header class="tp-block-header">
-                                            <h4 class="tp-block-title">Cards</h4>
-                                            <p class="tp-block-subtitle">Content containers for dashboards and layouts.</p>
-                                        </header>
-                                        <div class="tp-block-body">
-                                            <div class="tp-card-grid">
-                                                <article class="tp-card">
-                                                    <header class="tp-card-header">
-                                                        <h5 class="tp-card-title">Project overview</h5>
-                                                        <span class="tp-pill tp-pill-soft">Active</span>
-                                                    </header>
-                                                    <p class="tp-card-body-text">
-                                                        A short description of the project and its current status.
-                                                    </p>
-                                                    <footer class="tp-card-footer">
-                                                        <button class="tp-btn tp-btn-primary tp-btn-sm">Open</button>
-                                                        <button class="tp-btn tp-btn-ghost tp-btn-sm">Share</button>
-                                                    </footer>
-                                                </article>
-
-                                                <article class="tp-card tp-card-muted">
-                                                    <header class="tp-card-header">
-                                                        <h5 class="tp-card-title">Usage this month</h5>
-                                                    </header>
-                                                    <p class="tp-card-body-text">
-                                                        1,284 active users<br />
-                                                        97% uptime<br />
-                                                        3 open incidents
-                                                    </p>
-                                                </article>
-                                            </div>
+                                        <div class="tp-btn-grid">
+                                            <button class="tp-btn tp-btn-primary">Primary action</button>
+                                            <button class="tp-btn tp-btn-secondary">Secondary</button>
+                                            <button class="tp-btn tp-btn-ghost">Ghost</button>
+                                            <button class="tp-btn tp-btn-outline">Outline</button>
+                                            <button class="tp-btn tp-btn-primary tp-btn-loading">
+                                                <span class="tp-spinner" aria-hidden="true"></span>
+                                                Saving…
+                                            </button>
+                                            <button class="tp-btn tp-btn-primary" disabled>Disabled</button>
                                         </div>
-                                    </section>
+                                    </div>
+                                </article>
 
-                                    <section class="tp-block" id="tp-section-alerts">
-                                        <header class="tp-block-header">
-                                            <h4 class="tp-block-title">Alerts</h4>
-                                            <p class="tp-block-subtitle">Feedback messages for different states.</p>
-                                        </header>
-                                        <div class="tp-block-body tp-alert-stack">
+                                <!-- Pills block -->
+                                <article id="tp-section-pills" class="tp-block">
+                                    <div class="tp-block-header">
+                                        <h3 class="tp-block-title">Status pills</h3>
+                                        <p class="tp-block-subtitle">
+                                            Uses success / warning / danger tokens so you can tune states.
+                                        </p>
+                                    </div>
+                                    <div class="tp-block-body">
+                                        <div class="tp-pill-row">
+                                            <span class="tp-pill tp-pill-success">Deployed</span>
+                                            <span class="tp-pill tp-pill-warning">Needs review</span>
+                                            <span class="tp-pill tp-pill-danger">Failed check</span>
+                                            <span class="tp-pill tp-pill-soft">Archived</span>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- Alerts block -->
+                                <article id="tp-section-alerts" class="tp-block">
+                                    <div class="tp-block-header">
+                                        <h3 class="tp-block-title">Alerts</h3>
+                                        <p class="tp-block-subtitle">
+                                            All four alert variants respond to your colour changes.
+                                        </p>
+                                    </div>
+                                    <div class="tp-block-body">
+                                        <div class="tp-alert-stack">
                                             <div class="tp-alert tp-alert-success">
-                                                <div class="tp-alert-title">Everything looks good</div>
-                                                <div class="tp-alert-text">Your changes have been saved successfully.</div>
+                                                <div class="tp-alert-title">Deployment successful</div>
+                                                <div class="tp-alert-text">
+                                                    All checks passed and your build is now live.
+                                                </div>
                                             </div>
                                             <div class="tp-alert tp-alert-info">
-                                                <div class="tp-alert-title">Heads up</div>
-                                                <div class="tp-alert-text">New updates are available for this project.</div>
+                                                <div class="tp-alert-title">Information</div>
+                                                <div class="tp-alert-text">
+                                                    A new update is available for the CLI tools.
+                                                </div>
                                             </div>
                                             <div class="tp-alert tp-alert-warning">
-                                                <div class="tp-alert-title">Check your settings</div>
-                                                <div class="tp-alert-text">Some integrations need your attention.</div>
+                                                <div class="tp-alert-title">Attention needed</div>
+                                                <div class="tp-alert-text">
+                                                    Some environments have not been configured yet.
+                                                </div>
                                             </div>
                                             <div class="tp-alert tp-alert-danger">
-                                                <div class="tp-alert-title">Something went wrong</div>
-                                                <div class="tp-alert-text">We couldn’t save your changes. Try again.</div>
+                                                <div class="tp-alert-title">Error</div>
+                                                <div class="tp-alert-text">
+                                                    The last run failed. Check your error logs and try again.
+                                                </div>
                                             </div>
                                         </div>
-                                    </section>
-                                </section>
+                                    </div>
+                                </article>
+
+                                <!-- Cards block -->
+                                <article id="tp-section-cards" class="tp-block">
+                                    <div class="tp-block-header">
+                                        <h3 class="tp-block-title">Cards & layout</h3>
+                                        <p class="tp-block-subtitle">
+                                            See spacing, radius and shadows across content.
+                                        </p>
+                                    </div>
+                                    <div class="tp-block-body">
+                                        <div class="tp-card-grid">
+                                            <div class="tp-card">
+                                                <div class="tp-card-header">
+                                                    <h4 class="tp-card-title">Project overview</h4>
+                                                    <span class="tp-pill tp-pill-success">Healthy</span>
+                                                </div>
+                                                <p class="tp-card-body-text">
+                                                    12 active components, 4 in review and 1 flagged for refactor.
+                                                </p>
+                                                <div class="tp-card-footer">
+                                                    <button class="tp-btn tp-btn-primary tp-btn-sm">Open</button>
+                                                    <button class="tp-btn tp-btn-ghost tp-btn-sm">Analytics</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="tp-card tp-card-muted">
+                                                <div class="tp-card-header">
+                                                    <h4 class="tp-card-title">Activity</h4>
+                                                    <span class="tp-pill tp-pill-soft">Last 24 hours</span>
+                                                </div>
+                                                <p class="tp-card-body-text">
+                                                    8 deployments, 23 commits and 4 pull requests merged.
+                                                </p>
+                                                <div class="tp-card-footer">
+                                                    <button class="tp-btn tp-btn-secondary tp-btn-sm">View logs</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
                             </section>
-                        </section>
+                        </div>
                     </main>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 </section>
+
 
 
 @section Scripts {
